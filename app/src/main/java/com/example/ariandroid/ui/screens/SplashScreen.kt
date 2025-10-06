@@ -48,7 +48,6 @@ fun SplashScreen(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(horizontal = 20.dp)
-                .padding(bottom = 216.dp, top = 80.dp)
                 .systemBarsPadding()
         ) {
             //Заголовок
