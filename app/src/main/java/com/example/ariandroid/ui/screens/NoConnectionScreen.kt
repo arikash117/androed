@@ -44,38 +44,43 @@ fun NoConnectionScreen() {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(horizontal = 36.dp).systemBarsPadding()
         ) {
-            //Иконка
-            Image(
-                painter = painterResource(id = R.drawable.no_connection),
-                contentDescription = "No connection icon",
-                modifier = Modifier.size(100.dp)
-            )
+            Column (
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                //Иконка
+                Image(
+                    painter = painterResource(id = R.drawable.no_connection),
+                    contentDescription = "No connection icon",
+                    modifier = Modifier.size(100.dp),
+                )
 
-            Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(32.dp))
 
-            //Текст
-            Text(
-                text = "Нет подключения к интернету",
-                color = BlackCurrant,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.bodyLarge.copy(lineHeight = 50.sp),
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
+                Column {
+                    //Текст
+                    Text(
+                        text = "Нет подключения к интернету",
+                        color = BlackCurrant,
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.bodyLarge.copy(lineHeight = 50.sp),
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 40.dp)
+                    )
 
-            Spacer(modifier = Modifier.height(32.dp))
+                    Spacer(modifier = Modifier.height(32.dp))
 
-            //Текст
-            Text(
-                text = "Проверьте подключение и повторите попытку",
-                color = BlackCurrant,
-                fontSize = 16.sp,
-                style = MaterialTheme.typography.bodyLarge,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth(),
-                lineHeight = 20.sp
-            )
+                    //Текст
+                    Text(
+                        text = "Проверьте подключение и повторите попытку",
+                        color = Color(0xFF1A1A1A),
+                        style = MaterialTheme.typography.bodyLarge,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth(),
+                        lineHeight = 20.sp
+                    )
+                }
+            }
 
             Spacer(modifier = Modifier.height(200.dp))
 

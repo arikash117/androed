@@ -66,7 +66,6 @@ fun SplashScreen(
             Text(
                 text = "Поможем найти твою следующую поездку",
                 color = Color(0xB3000000),
-                fontSize = 16.sp,
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Start,
                 modifier = Modifier.fillMaxWidth(),
