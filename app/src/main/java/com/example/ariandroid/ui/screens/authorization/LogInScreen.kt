@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -94,10 +95,10 @@ fun LogInScreen(
                         Spacer(modifier = Modifier.height(4.dp))
 
                         OutlinedTextField(
-                            value = "Введите электронную почту",
+                            value = TextFieldValue(""),
                             onValueChange = { },
                             placeholder = { Text("Введите электронную почту", color = Color.Gray) },
-                            modifier = Modifier.fillMaxWidth().height(45.dp)
+                            modifier = Modifier.fillMaxWidth()
                         )
                     }
 
@@ -111,10 +112,10 @@ fun LogInScreen(
                         Spacer(modifier = Modifier.height(4.dp))
 
                         OutlinedTextField(
-                            value = "Введите пароль",
+                            value = TextFieldValue(""),
                             onValueChange = { },
                             placeholder = { Text("Введите пароль", color = Color.Gray) },
-                            modifier = Modifier.fillMaxWidth().height(45.dp),
+                            modifier = Modifier.fillMaxWidth(),
                             trailingIcon = {
                                 Image(
                                     painter = painterResource(id = R.drawable.visible),

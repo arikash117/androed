@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -92,10 +93,13 @@ fun SignUpScreen(
                         Spacer(modifier = Modifier.height(4.dp))
 
                         OutlinedTextField(
-                            value = "Введите электронную почту",
+                            value = TextFieldValue(""),
                             onValueChange = { },
-                            placeholder = { Text("Введите электронную почту", color = Color.Gray) },
-                            modifier = Modifier.fillMaxWidth().height(45.dp),
+                            placeholder = { Text("Введите электронную почту",
+                                color = Color.Gray,
+                                modifier = Modifier.fillMaxWidth()) },
+                            modifier = Modifier.fillMaxWidth(),
+                            singleLine = true
                         )
                     }
 
@@ -109,10 +113,10 @@ fun SignUpScreen(
                         Spacer(modifier = Modifier.height(4.dp))
 
                         OutlinedTextField(
-                            value = "Введите пароль",
+                            value = TextFieldValue(""),
                             onValueChange = { },
                             placeholder = { Text("Введите пароль", color = Color.Gray) },
-                            modifier = Modifier.fillMaxWidth().height(45.dp),
+                            modifier = Modifier.fillMaxWidth(),
                             trailingIcon = {
                                 Image(
                                     painter = painterResource(id = R.drawable.visible),
@@ -134,10 +138,10 @@ fun SignUpScreen(
                         Spacer(modifier = Modifier.height(4.dp))
 
                         OutlinedTextField(
-                            value = "Введите пароль",
+                            value = TextFieldValue(""),
                             onValueChange = { },
                             placeholder = { Text("Введите пароль", color = Color.Gray) },
-                            modifier = Modifier.fillMaxWidth().height(45.dp),
+                            modifier = Modifier.fillMaxWidth(),
                             trailingIcon = {
                                 Image(
                                     painter = painterResource(id = R.drawable.visible),
