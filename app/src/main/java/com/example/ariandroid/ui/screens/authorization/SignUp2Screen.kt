@@ -38,7 +38,7 @@ import com.example.ariandroid.ui.theme.BlackCurrant
 
 @Preview
 @Composable
-fun AddSignUp2Screen(
+fun SignUp2Screen(
 
 ) {
 
