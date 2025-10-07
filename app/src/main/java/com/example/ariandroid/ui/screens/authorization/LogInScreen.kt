@@ -22,7 +22,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,17 +34,12 @@ import androidx.compose.ui.unit.sp
 import com.example.ariandroid.R
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
-import kotlinx.coroutines.delay
 
 @Preview
 @Composable
 fun LogInScreen(
-    onSplashEnd: () -> Unit = {}
+
 ) {
-    LaunchedEffect(Unit) {
-        delay(2500)
-        onSplashEnd()
-    }
 
     Box(
         modifier = Modifier
@@ -120,7 +114,14 @@ fun LogInScreen(
                             value = "Введите пароль",
                             onValueChange = { },
                             placeholder = { Text("Введите пароль", color = Color.Gray) },
-                            modifier = Modifier.fillMaxWidth().height(45.dp)
+                            modifier = Modifier.fillMaxWidth().height(45.dp),
+                            trailingIcon = {
+                                Image(
+                                    painter = painterResource(id = R.drawable.visible),
+                                    contentDescription = "Visible icon",
+                                    modifier = Modifier.size(15.dp)
+                                )
+                            }
                         )
                     }
 
@@ -199,7 +200,6 @@ fun LogInScreen(
             Text(
                 text = "Зарегистироваться",
                 color = BlackCurrant,
-                fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
             )
