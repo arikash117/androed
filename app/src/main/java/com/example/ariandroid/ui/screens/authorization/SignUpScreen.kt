@@ -182,7 +182,7 @@ fun SignUpScreen(
                     ),
             ) {
                 Text(
-                    text = "Войти",
+                    text = "Далее",
                     color = Color(0xFFFFFFFF),
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center,
