@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -26,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -62,9 +64,10 @@ fun LogInScreen(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = "Ввойдите в аккаунт",
+                    text = "Войдите в аккаунт",
                     color = Color(0xFF1A1A1A),
                     style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
                     fontSize = 24.sp,
                 )
@@ -88,7 +91,45 @@ fun LogInScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxWidth()
                 ) {
+                    // Почта
+                    Column {
+                        Text (
+                            text = "Электронная почта"
+                        )
 
+                        Spacer(modifier = Modifier.height(4.dp))
+
+                        OutlinedTextField(
+                            value = "Введите электронную почту",
+                            onValueChange = { },
+                            placeholder = { Text("Введите электронную почту", color = Color.Gray) },
+                            modifier = Modifier.fillMaxWidth().height(45.dp)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Пароль
+                    Column {
+                        Text (
+                            text = "Пароль"
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+
+                        OutlinedTextField(
+                            value = "Введите пароль",
+                            onValueChange = { },
+                            placeholder = { Text("Введите пароль", color = Color.Gray) },
+                            modifier = Modifier.fillMaxWidth().height(45.dp)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    Text(
+                        text = "Забыли пароль?",
+                        color = BlackCurrant,
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(32.dp))
@@ -157,6 +198,8 @@ fun LogInScreen(
             // Зарегистрироваться
             Text(
                 text = "Зарегистироваться",
+                color = BlackCurrant,
+                fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
             )
