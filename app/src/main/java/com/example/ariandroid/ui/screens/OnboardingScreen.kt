@@ -102,10 +102,9 @@ fun OnboardingScreen (
             Text(
                 text = stringResource(R.string.skip),
                 style = MaterialTheme.typography.bodyLarge,
-                //fontSize = 14.sp,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { navigateToAutorization },
+                    .clickable { navigateToAutorization() },
                 textAlign = TextAlign.End
             )
 

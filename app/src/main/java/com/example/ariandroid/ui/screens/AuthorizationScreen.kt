@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,12 +46,13 @@ fun AuthorizationScreen(
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(horizontal = 20.dp)
+            modifier = Modifier
+                .padding(horizontal = 20.dp)
                 .systemBarsPadding()
         ) {
             //Заголовок
             Text(
-                text = "DriveNext",
+                text = stringResource(R.string.app_drivenext),
                 color = BlackCurrant,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
@@ -62,7 +64,7 @@ fun AuthorizationScreen(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Поможем найти твою следующую поездку",
+                text = stringResource(R.string.title_description),
                 color = Color(0xB3000000),
                 fontSize = 16.sp,
                 style = MaterialTheme.typography.bodyLarge,
@@ -85,7 +87,7 @@ fun AuthorizationScreen(
             Column {
                 // Войти
                 TextButton(
-                    onClick = {},
+                    onClick = { navigateToLogIn() },
                     modifier = Modifier
                         .size(width = 350.dp, height = 50.dp)
                         .background(
@@ -93,7 +95,7 @@ fun AuthorizationScreen(
                         ),
                 ) {
                     Text(
-                        text = "Войти",
+                        text = stringResource(R.string.sign_in),
                         color = Color(0xFFFFFFFF),
                         style = MaterialTheme.typography.bodyLarge,
                         textAlign = TextAlign.Center,
@@ -104,7 +106,7 @@ fun AuthorizationScreen(
 
                 // Зарегистрироваться
                 TextButton(
-                    onClick = {},
+                    onClick = { navigateToSignUp() },
                     modifier = Modifier
                         .size(width = 350.dp, height = 50.dp)
                         .background(
@@ -113,7 +115,7 @@ fun AuthorizationScreen(
                         .border(1.dp, Color.Gray, shape = RoundedCornerShape(8.dp))
                 ) {
                     Text(
-                        text = "Зарегистрироваться",
+                        text = stringResource(R.string.sign_up),
                         color = Color(0xFF344054),
                         style = MaterialTheme.typography.bodyLarge,
                         textAlign = TextAlign.Center,

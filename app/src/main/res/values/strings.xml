@@ -33,4 +33,9 @@
     <string name="congratulations">Поздравляем</string>
     <string name="congratulations_description">Вы успешно зарегистрировались. Обработка ваших персональных данных займет около двух часов. Спасибо за ожидание.</string>
     <string name="skip">Пропустить</string>
+    <string name="app_drivenext">DriveNext</string>
+    <string name="title_description">Поможем найти твою следующую поездку</string>
+    <string name="no_connection">Нет подключения к интернету</string>
+    <string name="retry_connection">Проверьте подключение и повторите попытку</string>
+    <string name="retry">Повторить попытку</string>
 </resources>
