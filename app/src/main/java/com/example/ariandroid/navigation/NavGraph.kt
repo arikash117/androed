@@ -90,7 +90,14 @@ fun NavGraph() {
 
         // Навигация страницы 3 регистрации
         composable ("SignUp3Screen") {
-            SignUp3Screen()
+            SignUp3Screen(
+                navigateToCongrats = {
+                    navController.navigate("Congratulations")
+                },
+                navigateBack = {
+                    navController.navigate("SignUp2Screen")
+                },
+            )
         }
 
         // Навигация страницы успешной регистрации
