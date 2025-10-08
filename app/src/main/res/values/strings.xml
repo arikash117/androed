@@ -31,5 +31,6 @@
     <string name="sign_up">Зарегистироваться</string>
     <string name="сongratulations_title">Пользуйтесь с удовольствием</string>
     <string name="congratulations">Поздравляем</string>
-    <string name="Congratulations_description">Вы успешно зарегистрировались. Обработка ваших персональных данных займет около двух часов. Спасибо за ожидание.</string>
+    <string name="congratulations_description">Вы успешно зарегистрировались. Обработка ваших персональных данных займет около двух часов. Спасибо за ожидание.</string>
+    <string name="skip">Пропустить</string>
 </resources>

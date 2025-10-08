@@ -30,9 +30,6 @@ fun NavGraph() {
         // Навигация страницы выбора авторизации
         composable("AuthorizationScreen") {
             AuthorizationScreen (
-                navigateToOnboarding = {
-                    navController.navigate("OnboardingScreen") {}
-                },
                 navigateToLogIn = {
                     navController.navigate("LoginScreen") {}
                 },

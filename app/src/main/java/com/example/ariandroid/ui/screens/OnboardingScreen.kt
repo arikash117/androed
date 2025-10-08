@@ -100,7 +100,7 @@ fun OnboardingScreen (
         ) {
             //Пропустить
             Text(
-                text = "Пропустить",
+                text = stringResource(R.string.skip),
                 style = MaterialTheme.typography.bodyLarge,
                 //fontSize = 14.sp,
                 modifier = Modifier

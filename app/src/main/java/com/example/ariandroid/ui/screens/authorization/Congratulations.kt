@@ -90,7 +90,7 @@ fun Congratulations(
 
                     )
                     Text(
-                        text = stringResource(R.string.Congratulations_description),
+                        text = stringResource(R.string.congratulations_description),
                         textAlign = TextAlign.Center,
                     )
                 }
