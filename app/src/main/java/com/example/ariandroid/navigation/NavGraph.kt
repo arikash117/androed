@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.ariandroid.ui.screens.AuthorizationScreen
+import com.example.ariandroid.ui.screens.OnboardingScreen
 import com.example.ariandroid.ui.screens.SplashScreen
 
 @Composable
@@ -19,7 +20,7 @@ fun NavGraph() {
         composable("SplashScreen") {
             SplashScreen (
                 onSplashEnd = {
-                    navController.navigate("AuthorizationScreen") {
+                    navController.navigate("OnboardingScreen") {
                         popUpTo("SplashScreen") { inclusive = true }
                     }
                 }
@@ -41,6 +42,16 @@ fun NavGraph() {
             )
         }
 
+        // Навигация
+        composable("OnboardingScreen") {
+            OnboardingScreen(
+                navigateToAutorization = {
+                    navController.navigate("AuthorizationScreen") {
+                        popUpTo("OnboardingScreen") {inclusive = true}
+                    }
+                }
+            )
+        }
 
     }
 }
