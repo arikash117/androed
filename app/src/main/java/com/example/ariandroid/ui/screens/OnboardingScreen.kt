@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -57,18 +58,18 @@ fun OnboardingScreen (
     val pages = listOf(
         OnboardingPage(
             currentImage = R.drawable.onboarding_one,
-            currentTitle = "Аренда автомобилей",
-            currentDescription = "Открой для себя удобный и доступный способ передвижения",
+            currentTitle = stringResource(R.string.onboarding_first_title),
+            currentDescription = stringResource(R.string.onboarding_first_description),
         ),
         OnboardingPage(
             currentImage = R.drawable.onboarding_two,
-            currentTitle = "Безопасно и удобно",
-            currentDescription = "Арендуй автомобиль и наслаждайся его удобством",
+            currentTitle = stringResource(R.string.onboarding_second_title),
+            currentDescription = stringResource(R.string.onboarding_second_description),
         ),
         OnboardingPage(
             currentImage = R.drawable.onboarding_three,
-            currentTitle = "Лучшие предложения",
-            currentDescription = "Выбирай понравившееся среди сотен доступных автомобилей",
+            currentTitle = stringResource(R.string.onboarding_third_title),
+            currentDescription = stringResource(R.string.onboarding_third_description),
         ),
     )
     var currentPage by remember { mutableIntStateOf(0) }
@@ -93,15 +94,18 @@ fun OnboardingScreen (
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .padding(horizontal = 24.dp).padding(top = 16.dp, bottom = 32.dp)
+                .padding(horizontal = 24.dp)
+                .padding(top = 16.dp, bottom = 32.dp)
                 .systemBarsPadding()
         ) {
             //Пропустить
             Text(
                 text = "Пропустить",
                 style = MaterialTheme.typography.bodyLarge,
-                fontSize = 24.sp,
-                modifier = Modifier.fillMaxWidth().clickable{ navigateToAutorization },
+                //fontSize = 14.sp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { navigateToAutorization },
                 textAlign = TextAlign.End
             )
 
@@ -111,7 +115,6 @@ fun OnboardingScreen (
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 70.dp)
             ) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -124,6 +127,9 @@ fun OnboardingScreen (
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
                     )
+
+                    Spacer(modifier = Modifier.height(32.dp))
+
                     Text(
                         text = pages[currentPage].currentDescription,
                     )
@@ -150,7 +156,7 @@ fun OnboardingScreen (
                         modifier = Modifier
                             .height(50.dp)
                             .background(
-                                color = BlackCurrant, shape = RoundedCornerShape(8.dp)
+                                color = BlackCurrant, shape = RoundedCornerShape(14.dp)
                             ),
                         contentPadding = PaddingValues(horizontal = 40.dp, vertical = 14.dp)
                     ) {

@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -47,12 +48,13 @@ fun Congratulations(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 24.dp).padding(top = 16.dp, bottom = 32.dp)
+                .padding(horizontal = 24.dp)
+                .padding(top = 16.dp, bottom = 32.dp)
                 .systemBarsPadding()
         ) {
 
             Text (
-                text = "Пользуйтесь с удовольствием",
+                text = stringResource(R.string.сongratulations_title),
                 style = MaterialTheme.typography.bodyLarge,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
@@ -84,11 +86,11 @@ fun Congratulations(
                         .fillMaxWidth()
                 ) {
                     Text(
-                        text = "Поздравляем",
+                        text = stringResource(R.string.congratulations),
 
                     )
                     Text(
-                        text = "Вы успешно зарегистрировались. Обработка ваших персональных данных займет около двух часов. Спасибо за ожидание.",
+                        text = stringResource(R.string.Congratulations_description),
                         textAlign = TextAlign.Center,
                     )
                 }
@@ -105,7 +107,7 @@ fun Congratulations(
                     ),
             ) {
                 Text(
-                    text = "Далее",
+                    text = stringResource(R.string.next),
                     color = Color(0xFFFFFFFF),
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center,

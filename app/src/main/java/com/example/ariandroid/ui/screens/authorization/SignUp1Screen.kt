@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,32 +46,33 @@ fun SignUp1Screen(
             .background(Background),
         contentAlignment = Alignment.Center
     ) {
-        Column (
+        Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 24.dp).padding(top = 16.dp, bottom = 32.dp)
+                .padding(horizontal = 24.dp)
+                .padding(top = 16.dp, bottom = 32.dp)
                 .systemBarsPadding()
         ) {
             //Заголовок + форма
-            Column (
+            Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                Box (
+                Box(
                     contentAlignment = Alignment.CenterStart,
                     modifier = Modifier
                         .fillMaxWidth()
                 ) {
-                    Image (
+                    Image(
                         painter = painterResource(id = R.drawable.left_arrow),
-                        contentDescription = "Google icon",
+                        contentDescription = "Left arrow",
                         modifier = Modifier.size(20.dp)
                     )
 
-                    Text (
-                        text = "Создать аккаунт",
+                    Text(
+                        text = stringResource(R.string.create_account_title),
                         style = MaterialTheme.typography.bodyLarge,
                         fontSize = 24.sp,
                         modifier = Modifier.fillMaxWidth(),
@@ -80,14 +82,14 @@ fun SignUp1Screen(
 
                 Spacer(modifier = Modifier.height(100.dp))
 
-                Column (
+                Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     // Почта
                     Column {
                         Text(
-                            text = "Электронная почта"
+                            text = stringResource(R.string.email_title_field)
                         )
 
                         Spacer(modifier = Modifier.height(4.dp))
@@ -95,9 +97,14 @@ fun SignUp1Screen(
                         OutlinedTextField(
                             value = TextFieldValue(""),
                             onValueChange = { },
-                            placeholder = { Text("Введите электронную почту",
-                                color = Color.Gray,
-                                modifier = Modifier.fillMaxWidth()) },
+                            placeholder = {
+                                Text(
+                                    stringResource(R.string.enter_email),
+                                    color = Color.Gray,
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+                            },
+                            shape = RoundedCornerShape(14.dp),
                             modifier = Modifier.fillMaxWidth(),
                             singleLine = true
                         )
@@ -108,15 +115,16 @@ fun SignUp1Screen(
                     // Придумайте пароль
                     Column {
                         Text(
-                            text = "Придумайте пароль"
+                            text = stringResource(R.string.password_field_title)
                         )
                         Spacer(modifier = Modifier.height(4.dp))
 
                         OutlinedTextField(
                             value = TextFieldValue(""),
                             onValueChange = { },
-                            placeholder = { Text("Введите пароль", color = Color.Gray) },
+                            placeholder = { Text(stringResource(R.string.enter_password), color = Color.Gray) },
                             modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(14.dp),
                             trailingIcon = {
                                 Image(
                                     painter = painterResource(id = R.drawable.visible),
@@ -133,15 +141,16 @@ fun SignUp1Screen(
                     // Повторите пароль
                     Column {
                         Text(
-                            text = "Повторите пароль"
+                            text = stringResource(R.string.repeat_password_field_title)
                         )
                         Spacer(modifier = Modifier.height(4.dp))
 
                         OutlinedTextField(
                             value = TextFieldValue(""),
                             onValueChange = { },
-                            placeholder = { Text("Введите пароль", color = Color.Gray) },
+                            placeholder = { Text(stringResource(R.string.enter_password), color = Color.Gray) },
                             modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(14.dp),
                             trailingIcon = {
                                 Image(
                                     painter = painterResource(id = R.drawable.visible),
@@ -167,7 +176,7 @@ fun SignUp1Screen(
                         Spacer(modifier = Modifier.width(10.dp))
 
                         Text(
-                            text = "Я согласен с условиями обслуживания и политикой конфиденциальности",
+                            text = stringResource(R.string.terms_agreement),
                             style = MaterialTheme.typography.bodyLarge.copy(lineHeight = 14.sp),
                             fontSize = 12.sp,
                         )
@@ -182,11 +191,11 @@ fun SignUp1Screen(
                 modifier = Modifier
                     .size(width = 350.dp, height = 50.dp)
                     .background(
-                        color = BlackCurrant, shape = RoundedCornerShape(8.dp)
+                        color = BlackCurrant, shape = RoundedCornerShape(14.dp)
                     ),
             ) {
                 Text(
-                    text = "Далее",
+                    text = stringResource(R.string.next),
                     color = Color(0xFFFFFFFF),
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center,

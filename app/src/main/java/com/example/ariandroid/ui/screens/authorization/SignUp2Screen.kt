@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -73,7 +74,7 @@ fun SignUp2Screen(
                     )
 
                     Text (
-                        text = "Создать аккаунт",
+                        text = stringResource(R.string.create_account_title),
                         style = MaterialTheme.typography.bodyLarge,
                         fontSize = 24.sp,
                         modifier = Modifier.fillMaxWidth(),
@@ -102,6 +103,7 @@ fun SignUp2Screen(
                                 color = Color.Gray,
                                 modifier = Modifier.fillMaxWidth()) },
                             modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(14.dp),
                             singleLine = true
                         )
                     }
@@ -123,6 +125,7 @@ fun SignUp2Screen(
                                 color = Color.Gray,
                                 modifier = Modifier.fillMaxWidth()) },
                             modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(14.dp),
                             singleLine = true
                         )
                     }
@@ -144,6 +147,7 @@ fun SignUp2Screen(
                                 color = Color.Gray,
                                 modifier = Modifier.fillMaxWidth()) },
                             modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(14.dp),
                             singleLine = true
                         )
                     }
@@ -165,6 +169,7 @@ fun SignUp2Screen(
                                 color = Color.Gray,
                                 modifier = Modifier.fillMaxWidth()) },
                             modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(14.dp),
                             singleLine = true,
                             leadingIcon = {
                                 Image(
@@ -226,11 +231,11 @@ fun SignUp2Screen(
                 modifier = Modifier
                     .size(width = 350.dp, height = 50.dp)
                     .background(
-                        color = BlackCurrant, shape = RoundedCornerShape(8.dp)
+                        color = BlackCurrant, shape = RoundedCornerShape(14.dp)
                     ),
             ) {
                 Text(
-                    text = "Далее",
+                    text = stringResource(R.string.next),
                     color = Color(0xFFFFFFFF),
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center,
