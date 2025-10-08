@@ -7,7 +7,11 @@ import androidx.navigation.compose.rememberNavController
 import com.example.ariandroid.ui.screens.AuthorizationScreen
 import com.example.ariandroid.ui.screens.OnboardingScreen
 import com.example.ariandroid.ui.screens.SplashScreen
+import com.example.ariandroid.ui.screens.authorization.SignUp3Screen
+import com.example.ariandroid.ui.screens.authorization.Congratulations
 import com.example.ariandroid.ui.screens.authorization.LogInScreen
+import com.example.ariandroid.ui.screens.authorization.SignUp1Screen
+import com.example.ariandroid.ui.screens.authorization.SignUp2Screen
 
 @Composable
 fun NavGraph() {
@@ -60,9 +64,31 @@ fun NavGraph() {
             LogInScreen()
         }
 
-        //
-        composable ("") {
+        // Навигация страницы 1 регистрации
+        composable ("SignUp1Screen") {
+            SignUp1Screen(
+                navigateToSignUp2 = {
+                    navController.navigate("SignUp2Screen")
+                },
+                navigateBack = {
+                    navController.navigate("AuthorizationScreen")
+                },
+            )
+        }
 
+        // Навигация страницы 2 регистрации
+        composable ("SignUp2Screen") {
+            SignUp2Screen()
+        }
+
+        // Навигация страницы 3 регистрации
+        composable ("SignUp3Screen") {
+            SignUp3Screen()
+        }
+
+        // Навигация страницы успешной регистрации
+        composable ("Congratulations") {
+            Congratulations()
         }
 
     }

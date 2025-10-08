@@ -2,6 +2,7 @@ package com.example.ariandroid.ui.screens.authorization
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,10 +35,11 @@ import com.example.ariandroid.R
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
 
-@Preview
+
 @Composable
 fun SignUp1Screen(
-
+    navigateToSignUp2: () -> Unit,
+    navigateBack: () -> Unit,
 ) {
 
     Box(
@@ -68,7 +70,7 @@ fun SignUp1Screen(
                     Image(
                         painter = painterResource(id = R.drawable.left_arrow),
                         contentDescription = "Left arrow",
-                        modifier = Modifier.size(20.dp)
+                        modifier = Modifier.size(20.dp).clickable(onClick = {navigateBack()})
                     )
 
                     Text(
@@ -187,7 +189,7 @@ fun SignUp1Screen(
             Spacer(modifier = Modifier.weight(1f))
 
             TextButton(
-                onClick = {},
+                onClick = { navigateToSignUp2() },
                 modifier = Modifier
                     .size(width = 350.dp, height = 50.dp)
                     .background(
@@ -204,4 +206,13 @@ fun SignUp1Screen(
 
         }
     }
+}
+
+@Composable
+@Preview(showBackground = true)
+fun SignUp1ScreenPreview () {
+    SignUp1Screen(
+        navigateToSignUp2 = {},
+        navigateBack = {},
+    )
 }
