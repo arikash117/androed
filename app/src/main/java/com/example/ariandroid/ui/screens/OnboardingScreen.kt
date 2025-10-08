@@ -99,14 +99,19 @@ fun OnboardingScreen (
                 .systemBarsPadding()
         ) {
             //Пропустить
-            Text(
-                text = stringResource(R.string.skip),
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { navigateToAutorization() },
-                textAlign = TextAlign.End
-            )
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.End
+            ) {
+                Text(
+                    text = stringResource(R.string.skip),
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier
+                        .clickable { navigateToAutorization() },
+                    textAlign = TextAlign.End
+                )
+            }
+
 
             Spacer(modifier = Modifier.weight(1f))
 

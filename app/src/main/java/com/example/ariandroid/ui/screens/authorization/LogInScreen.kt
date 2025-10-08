@@ -3,6 +3,7 @@ package com.example.ariandroid.ui.screens.authorization
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,16 +31,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ariandroid.R
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
 
-//@Preview
+
 @Composable
 fun LogInScreen(
-
+    navigateToSignUp: () -> Unit,
 ) {
 
     Box(
@@ -205,10 +207,19 @@ fun LogInScreen(
             // Зарегистрироваться
             Text(
                 text = stringResource(R.string.sign_up),
+                modifier = Modifier
+                    .clickable { navigateToSignUp() },
                 color = BlackCurrant,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth(),
             )
         }
     }
+}
+
+@Composable
+@Preview(showBackground = true)
+fun LogInScreenPreview () {
+    LogInScreen(
+        navigateToSignUp = {},
+    )
 }

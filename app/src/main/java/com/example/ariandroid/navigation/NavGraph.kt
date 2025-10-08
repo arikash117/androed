@@ -36,14 +36,10 @@ fun NavGraph() {
         composable("AuthorizationScreen") {
             AuthorizationScreen (
                 navigateToLogIn = {
-                    navController.navigate("LoginScreen") {
-                        popUpTo("AuthorizationScreen") {inclusive = true}
-                    }
+                    navController.navigate("LoginScreen") {}
                 },
                 navigateToSignUp = {
-                    navController.navigate("SignUp1Screen") {
-                        popUpTo("AuthorizationScreen") {inclusive = true}
-                    }
+                    navController.navigate("SignUp1Screen") {}
                 },
             )
         }
@@ -61,7 +57,11 @@ fun NavGraph() {
 
         // Навигация страницы входа в аккаунт
         composable ("LogInScreen") {
-            LogInScreen()
+            LogInScreen(
+                navigateToSignUp = {
+                    navController.navigate("SignUp1Screen") {}
+                },
+            )
         }
 
         // Навигация страницы 1 регистрации
