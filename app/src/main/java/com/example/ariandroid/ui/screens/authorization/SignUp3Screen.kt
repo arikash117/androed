@@ -2,6 +2,7 @@ package com.example.ariandroid.ui.screens.authorization
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,10 +37,10 @@ import com.example.ariandroid.R
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
 
-@Preview
 @Composable
-fun AddSignUp3Screen(
-
+fun SignUp3Screen(
+    navigateToCongrats: () -> Unit,
+    navigateBack: () -> Unit,
 ) {
 
     Box(
@@ -51,7 +53,8 @@ fun AddSignUp3Screen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 24.dp).padding(top = 16.dp, bottom = 32.dp)
+                .padding(horizontal = 24.dp)
+                .padding(top = 16.dp, bottom = 32.dp)
                 .systemBarsPadding()
         ) {
             // Заголовок + Аватар + Форма
@@ -68,12 +71,12 @@ fun AddSignUp3Screen(
                 ) {
                     Image (
                         painter = painterResource(id = R.drawable.left_arrow),
-                        contentDescription = "Google icon",
-                        modifier = Modifier.size(20.dp)
+                        contentDescription = "Left arrow",
+                        modifier = Modifier.size(20.dp).clickable {navigateBack()},
                     )
 
                     Text (
-                        text = "Создать аккаунт",
+                        text = stringResource(R.string.create_account_title),
                         style = MaterialTheme.typography.bodyLarge,
                         fontSize = 24.sp,
                         modifier = Modifier.fillMaxWidth(),
@@ -122,7 +125,7 @@ fun AddSignUp3Screen(
                         Spacer(modifier = Modifier.height(32.dp))
 
                         Text(
-                            text = "Добавление фотографии поможет владельцам и арендаторам узнать друг друга, когда они будут забирать машину",
+                            text = stringResource(R.string.create_pfp_description),
                             )
                     }
 
@@ -136,7 +139,7 @@ fun AddSignUp3Screen(
                         // Фамилия
                         Column {
                             Text(
-                                text = "Номер водительского удостоверения"
+                                text = stringResource(R.string.driver_id_field_title)
                             )
 
                             Spacer(modifier = Modifier.height(4.dp))
@@ -144,7 +147,9 @@ fun AddSignUp3Screen(
                             OutlinedTextField(
                                 value = TextFieldValue(""),
                                 onValueChange = { },
-                                placeholder = { Text("0000000000",
+                                shape = RoundedCornerShape(14.dp),
+                                placeholder = { Text(
+                                    stringResource(R.string.driver_id),
                                     color = Color.Gray,
                                     modifier = Modifier.fillMaxWidth()) },
                                 modifier = Modifier.fillMaxWidth(),
@@ -157,7 +162,7 @@ fun AddSignUp3Screen(
                         // Дата
                         Column {
                             Text(
-                                text = "Дата выдачи"
+                                text = stringResource(R.string.issue_date)
                             )
 
                             Spacer(modifier = Modifier.height(4.dp))
@@ -165,7 +170,9 @@ fun AddSignUp3Screen(
                             OutlinedTextField(
                                 value = TextFieldValue(""),
                                 onValueChange = { },
-                                placeholder = { Text("DD/MM/YYYY",
+                                shape = RoundedCornerShape(14.dp),
+                                placeholder = { Text(
+                                    stringResource(R.string.dd_mm_yyyy),
                                     color = Color.Gray,
                                     modifier = Modifier.fillMaxWidth()) },
                                 modifier = Modifier.fillMaxWidth(),
@@ -188,7 +195,7 @@ fun AddSignUp3Screen(
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Text(
-                                text = "Загрузите фото водительского удостоверения",
+                                text = stringResource(R.string.upload_driver_id),
                             )
 
                             Spacer(modifier = Modifier.height(4.dp))
@@ -199,14 +206,14 @@ fun AddSignUp3Screen(
                             {
                                 Image(
                                     painter = painterResource(id = R.drawable.upload),
-                                    contentDescription = "Visible icon",
+                                    contentDescription = "upload icon",
                                     modifier = Modifier.size(50.dp)
                                 )
 
                                 Spacer(modifier = Modifier.width(16.dp))
 
                                 Text(
-                                    text = "Загрузить фото"
+                                    text = stringResource(R.string.upload_photo)
                                 )
                             }
 
@@ -220,7 +227,7 @@ fun AddSignUp3Screen(
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Text(
-                                text = "Загрузите фото паспорта",
+                                text = stringResource(R.string.upload_passport),
                             )
 
                             Spacer(modifier = Modifier.height(4.dp))
@@ -238,7 +245,7 @@ fun AddSignUp3Screen(
                                 Spacer(modifier = Modifier.width(16.dp))
 
                                 Text(
-                                    text = "Загрузить фото"
+                                    text = stringResource(R.string.upload_photo)
                                 )
                             }
 
@@ -250,15 +257,15 @@ fun AddSignUp3Screen(
             Spacer(modifier = Modifier.weight(1f))
 
             TextButton(
-                onClick = {},
+                onClick = { navigateToCongrats() },
                 modifier = Modifier
                     .size(width = 350.dp, height = 50.dp)
                     .background(
-                        color = BlackCurrant, shape = RoundedCornerShape(8.dp)
+                        color = BlackCurrant, shape = RoundedCornerShape(14.dp)
                     ),
             ) {
                 Text(
-                    text = "Далее",
+                    text = stringResource(R.string.next),
                     color = Color(0xFFFFFFFF),
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center,
@@ -267,4 +274,14 @@ fun AddSignUp3Screen(
 
         }
     }
+}
+
+
+@Composable
+@Preview(showBackground = true)
+fun SignUp3ScreenPreview () {
+    SignUp3Screen(
+        navigateToCongrats = {},
+        navigateBack = {},
+    )
 }

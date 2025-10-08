@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,7 +43,9 @@ fun NoConnectionScreen() {
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(horizontal = 36.dp).systemBarsPadding()
+            modifier = Modifier
+                .padding(horizontal = 36.dp)
+                .systemBarsPadding()
         ) {
             Column (
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -59,20 +62,22 @@ fun NoConnectionScreen() {
                 Column {
                     //Текст
                     Text(
-                        text = "Нет подключения к интернету",
+                        text = stringResource(R.string.no_connection),
                         color = BlackCurrant,
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.bodyLarge.copy(lineHeight = 50.sp),
                         textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 40.dp)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 40.dp)
                     )
 
                     Spacer(modifier = Modifier.height(32.dp))
 
                     //Текст
                     Text(
-                        text = "Проверьте подключение и повторите попытку",
+                        text = stringResource(R.string.retry_connection),
                         color = Color(0xFF1A1A1A),
                         style = MaterialTheme.typography.bodyLarge,
                         textAlign = TextAlign.Center,
@@ -93,7 +98,7 @@ fun NoConnectionScreen() {
                     ),
             ) {
                 Text(
-                    text = "Повторить попытку",
+                    text = stringResource(R.string.retry),
                     color = Color(0xFFFFFFFF),
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center,

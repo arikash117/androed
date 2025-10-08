@@ -2,6 +2,7 @@ package com.example.ariandroid.ui.screens.authorization
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,10 +38,10 @@ import com.example.ariandroid.R
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
 
-@Preview
 @Composable
-fun AddSignUp2Screen(
-
+fun SignUp2Screen(
+    navigateToSignUp3: () -> Unit,
+    navigateBack: () -> Unit,
 ) {
 
     Box(
@@ -69,11 +71,11 @@ fun AddSignUp2Screen(
                     Image (
                         painter = painterResource(id = R.drawable.left_arrow),
                         contentDescription = "Google icon",
-                        modifier = Modifier.size(20.dp)
+                        modifier = Modifier.size(20.dp).clickable { navigateBack() }
                     )
 
                     Text (
-                        text = "Создать аккаунт",
+                        text = stringResource(R.string.create_account_title),
                         style = MaterialTheme.typography.bodyLarge,
                         fontSize = 24.sp,
                         modifier = Modifier.fillMaxWidth(),
@@ -102,6 +104,7 @@ fun AddSignUp2Screen(
                                 color = Color.Gray,
                                 modifier = Modifier.fillMaxWidth()) },
                             modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(14.dp),
                             singleLine = true
                         )
                     }
@@ -123,6 +126,7 @@ fun AddSignUp2Screen(
                                 color = Color.Gray,
                                 modifier = Modifier.fillMaxWidth()) },
                             modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(14.dp),
                             singleLine = true
                         )
                     }
@@ -144,6 +148,7 @@ fun AddSignUp2Screen(
                                 color = Color.Gray,
                                 modifier = Modifier.fillMaxWidth()) },
                             modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(14.dp),
                             singleLine = true
                         )
                     }
@@ -165,6 +170,7 @@ fun AddSignUp2Screen(
                                 color = Color.Gray,
                                 modifier = Modifier.fillMaxWidth()) },
                             modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(14.dp),
                             singleLine = true,
                             leadingIcon = {
                                 Image(
@@ -222,15 +228,15 @@ fun AddSignUp2Screen(
             Spacer(modifier = Modifier.weight(1f))
 
             TextButton(
-                onClick = {},
+                onClick = { navigateToSignUp3() },
                 modifier = Modifier
                     .size(width = 350.dp, height = 50.dp)
                     .background(
-                        color = BlackCurrant, shape = RoundedCornerShape(8.dp)
+                        color = BlackCurrant, shape = RoundedCornerShape(14.dp)
                     ),
             ) {
                 Text(
-                    text = "Далее",
+                    text = stringResource(R.string.next),
                     color = Color(0xFFFFFFFF),
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center,
@@ -239,4 +245,13 @@ fun AddSignUp2Screen(
 
         }
     }
+}
+
+@Composable
+@Preview(showBackground = true)
+fun SignUp2ScreenPreview () {
+    SignUp2Screen(
+        navigateToSignUp3 = {},
+        navigateBack = {},
+    )
 }
