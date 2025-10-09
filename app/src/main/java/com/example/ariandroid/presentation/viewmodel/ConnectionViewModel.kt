@@ -1,7 +1,7 @@
-package com.example.ariandroid.viewmodel
+package com.example.ariandroid.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.ariandroid.util.NetworkingUtil
+import com.example.ariandroid.presentation.util.NetworkingUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

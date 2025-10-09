@@ -1,4 +1,4 @@
-package com.example.ariandroid.navigation
+package com.example.ariandroid.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -8,16 +8,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.ariandroid.ui.screens.AuthorizationScreen
-import com.example.ariandroid.ui.screens.NoConnectionScreen
-import com.example.ariandroid.ui.screens.OnboardingScreen
-import com.example.ariandroid.ui.screens.SplashScreen
-import com.example.ariandroid.ui.screens.authorization.SignUp3Screen
-import com.example.ariandroid.ui.screens.authorization.Congratulations
-import com.example.ariandroid.ui.screens.authorization.LogInScreen
-import com.example.ariandroid.ui.screens.authorization.SignUp1Screen
-import com.example.ariandroid.ui.screens.authorization.SignUp2Screen
-import com.example.ariandroid.viewmodel.ConnectionViewModel
+import com.example.ariandroid.presentation.screens.AuthorizationScreen
+import com.example.ariandroid.presentation.screens.NoConnectionScreen
+import com.example.ariandroid.presentation.screens.OnboardingScreen
+import com.example.ariandroid.presentation.screens.SplashScreen
+import com.example.ariandroid.presentation.screens.authorization.SignUp3Screen
+import com.example.ariandroid.presentation.screens.authorization.Congratulations
+import com.example.ariandroid.presentation.screens.authorization.LogInScreen
+import com.example.ariandroid.presentation.screens.authorization.SignUp1Screen
+import com.example.ariandroid.presentation.screens.authorization.SignUp2Screen
+import com.example.ariandroid.presentation.viewmodel.ConnectionViewModel
 
 @Composable
 fun NavGraph() {

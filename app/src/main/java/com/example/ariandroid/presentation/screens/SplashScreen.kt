@@ -1,8 +1,7 @@
-package com.example.ariandroid.ui.screens
+package com.example.ariandroid.presentation.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,11 +11,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,18 +23,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-//import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ariandroid.R
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
+import kotlinx.coroutines.delay
 
+@Preview
 @Composable
-fun AuthorizationScreen(
-    navigateToLogIn: () -> Unit,
-    navigateToSignUp: () -> Unit,
+fun SplashScreen(
+    onSplashEnd: () -> Unit = {}
 ) {
+    LaunchedEffect(Unit) {
+        delay(2500)
+        onSplashEnd()
+    }
 
     Box(
         modifier = Modifier
@@ -46,8 +48,7 @@ fun AuthorizationScreen(
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .padding(horizontal = 20.dp)
+            modifier = Modifier.padding(horizontal = 20.dp)
                 .systemBarsPadding()
         ) {
             //Заголовок
@@ -66,7 +67,6 @@ fun AuthorizationScreen(
             Text(
                 text = stringResource(R.string.title_description),
                 color = Color(0xB3000000),
-                fontSize = 16.sp,
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Start,
                 modifier = Modifier.fillMaxWidth(),
@@ -80,58 +80,6 @@ fun AuthorizationScreen(
                 contentDescription = "DriveNext Logo",
                 modifier = Modifier.size(350.dp)
             )
-
-            Spacer(modifier = Modifier.height(50.dp))
-
-            //Колонна кнопок
-            Column {
-                // Войти
-                TextButton(
-                    onClick = { navigateToLogIn() },
-                    modifier = Modifier
-                        .size(width = 350.dp, height = 50.dp)
-                        .background(
-                            color = BlackCurrant, shape = RoundedCornerShape(8.dp)
-                        ),
-                ) {
-                    Text(
-                        text = stringResource(R.string.sign_in),
-                        color = Color(0xFFFFFFFF),
-                        style = MaterialTheme.typography.bodyLarge,
-                        textAlign = TextAlign.Center,
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(15.dp))
-
-                // Зарегистрироваться
-                TextButton(
-                    onClick = { navigateToSignUp() },
-                    modifier = Modifier
-                        .size(width = 350.dp, height = 50.dp)
-                        .background(
-                            color = Background, shape = RoundedCornerShape(8.dp)
-                        )
-                        .border(1.dp, Color.Gray, shape = RoundedCornerShape(8.dp))
-                ) {
-                    Text(
-                        text = stringResource(R.string.sign_up),
-                        color = Color(0xFF344054),
-                        style = MaterialTheme.typography.bodyLarge,
-                        textAlign = TextAlign.Center,
-                    )
-                }
-            }
-
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun AuthorizationScreenPreview () {
-    AuthorizationScreen(
-        navigateToLogIn = {},
-        navigateToSignUp = {},
-    )
 }
