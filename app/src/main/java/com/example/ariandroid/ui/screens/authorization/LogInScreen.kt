@@ -216,8 +216,8 @@ fun LogInScreen(
     }
 }
 
-@Composable
 @Preview(showBackground = true)
+@Composable
 fun LogInScreenPreview () {
     LogInScreen(
         navigateToSignUp = {},

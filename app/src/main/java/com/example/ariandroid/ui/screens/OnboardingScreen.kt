@@ -204,8 +204,8 @@ fun OnboardingProgressIndicator(
     }
 }
 
-@Composable
 @Preview(showBackground = true)
+@Composable
 fun OnboardingScreenPreview() {
     OnboardingScreen(
         navigateToAutorization = {}

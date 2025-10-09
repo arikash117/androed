@@ -31,9 +31,10 @@ import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
 
 
-@Preview
 @Composable
-fun NoConnectionScreen() {
+fun NoConnectionScreen(
+    onRetry: () -> Unit
+) {
 
     Box(
         modifier = Modifier
@@ -90,7 +91,7 @@ fun NoConnectionScreen() {
             Spacer(modifier = Modifier.height(200.dp))
 
             TextButton(
-                onClick = {},
+                onClick = { onRetry() },
                 modifier = Modifier
                     .size(width = 350.dp, height = 50.dp)
                     .background(
@@ -107,4 +108,12 @@ fun NoConnectionScreen() {
 
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun NoConnPreview () {
+     NoConnectionScreen (
+         onRetry = {},
+    )
 }

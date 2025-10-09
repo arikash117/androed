@@ -127,8 +127,8 @@ fun AuthorizationScreen(
     }
 }
 
-@Composable
 @Preview(showBackground = true)
+@Composable
 fun AuthorizationScreenPreview () {
     AuthorizationScreen(
         navigateToLogIn = {},

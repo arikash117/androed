@@ -208,8 +208,8 @@ fun SignUp1Screen(
     }
 }
 
-@Composable
 @Preview(showBackground = true)
+@Composable
 fun SignUp1ScreenPreview () {
     SignUp1Screen(
         navigateToSignUp2 = {},

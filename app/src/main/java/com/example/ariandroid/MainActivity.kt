@@ -13,9 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AriAndroidTheme {
-                AriAndroidTheme{
-                    NavGraph()
-                }
+                NavGraph()
             }
         }
     }

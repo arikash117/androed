@@ -1,10 +1,15 @@
 package com.example.ariandroid.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.ariandroid.ui.screens.AuthorizationScreen
+import com.example.ariandroid.ui.screens.NoConnectionScreen
 import com.example.ariandroid.ui.screens.OnboardingScreen
 import com.example.ariandroid.ui.screens.SplashScreen
 import com.example.ariandroid.ui.screens.authorization.SignUp3Screen
@@ -12,10 +17,38 @@ import com.example.ariandroid.ui.screens.authorization.Congratulations
 import com.example.ariandroid.ui.screens.authorization.LogInScreen
 import com.example.ariandroid.ui.screens.authorization.SignUp1Screen
 import com.example.ariandroid.ui.screens.authorization.SignUp2Screen
+import com.example.ariandroid.viewmodel.ConnectionViewModel
 
 @Composable
 fun NavGraph() {
     val navController = rememberNavController()
+    val connectionViewModel: ConnectionViewModel = hiltViewModel()
+
+    val hasInternet by connectionViewModel.connectionState.collectAsState()
+
+    LaunchedEffect(hasInternet) {
+        if (!hasInternet) {
+            // Если нет интернета, переходим на экран NoConnectionScreen
+            if (navController.currentDestination?.route != "NoConnectionScreen") {
+                navController.navigate("NoConnectionScreen") {
+                    // Очищаем бэкстек до сплэш-экрана
+                    popUpTo("SplashScreen") { inclusive = false }
+                }
+            }
+        } else {
+            // Если интернет появился и мы на экране NoConnectionScreen, переходим на Authorization
+            if (navController.currentDestination?.route == "NoConnectionScreen") {
+                navController.navigate("AuthorizationScreen") {
+                    popUpTo("NoConnectionScreen") { inclusive = true }
+                }
+            }
+        }
+    }
+
+    // Проверяем соединение при запуске
+    LaunchedEffect(Unit) {
+        connectionViewModel.checkConnection()
+    }
 
     NavHost(
         navController = navController,
@@ -25,8 +58,11 @@ fun NavGraph() {
         composable("SplashScreen") {
             SplashScreen (
                 onSplashEnd = {
-                    navController.navigate("OnboardingScreen") {
-                        popUpTo("SplashScreen") { inclusive = true }
+                    connectionViewModel.checkConnection()
+                    if (connectionViewModel.connectionState.value) {
+                        navController.navigate("OnboardingScreen") {
+                            popUpTo("SplashScreen") { inclusive = true }
+                        }
                     }
                 }
             )
@@ -48,8 +84,11 @@ fun NavGraph() {
         composable("OnboardingScreen") {
             OnboardingScreen(
                 navigateToAutorization = {
-                    navController.navigate("AuthorizationScreen") {
-                        popUpTo("OnboardingScreen") {inclusive = true}
+                    connectionViewModel.checkConnection()
+                    if (connectionViewModel.connectionState.value) {
+                        navController.navigate("AuthorizationScreen") {
+                            popUpTo("OnboardingScreen") { inclusive = true }
+                        }
                     }
                 }
             )
@@ -105,5 +144,13 @@ fun NavGraph() {
             Congratulations()
         }
 
+        // Навигация на экран нет соединения
+        composable ("NoConnectionScreen") {
+            NoConnectionScreen(
+                onRetry = {
+                    connectionViewModel.refreshConnection()
+                }
+            )
+        }
     }
 }

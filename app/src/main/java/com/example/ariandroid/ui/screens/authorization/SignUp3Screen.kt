@@ -277,8 +277,8 @@ fun SignUp3Screen(
 }
 
 
-@Composable
 @Preview(showBackground = true)
+@Composable
 fun SignUp3ScreenPreview () {
     SignUp3Screen(
         navigateToCongrats = {},
