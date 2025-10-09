@@ -5,6 +5,13 @@ data class LogInData (
     val password: String = "",
 )
 
-sealed class ValidationEvent {
-    object Success : ValidationEvent()
+data class ValidationResult(
+    val isSuccess: Boolean = false,
+    val emailError: String? = null,
+    val passError: String? = null,
+)
+
+sealed class LogInValidationEvent {
+    object Success : LogInValidationEvent()
+    data class Error(val message: String) : LogInValidationEvent()
 }
