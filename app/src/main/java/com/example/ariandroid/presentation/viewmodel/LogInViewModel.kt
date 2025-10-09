@@ -67,7 +67,7 @@ class LogInViewModel @Inject constructor() : ViewModel() {
     }
 
 
-    // fun login спросить зачем у дипсика
+    // fun login заменить на заглушку по типу если валидация верная то там текст вывести что все ок
 //    fun login() {
 //        viewModelScope.launch {
 //            if (validateForm()) {
