@@ -100,6 +100,7 @@ fun NavGraph() {
                 navigateToSignUp = {
                     navController.navigate("SignUp1Screen") {}
                 },
+                navigateToMain = {},
             )
         }
 

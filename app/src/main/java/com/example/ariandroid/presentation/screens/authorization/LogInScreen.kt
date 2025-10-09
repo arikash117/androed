@@ -23,6 +23,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -37,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.ariandroid.R
+import com.example.ariandroid.presentation.domain.model.LogInValidationEvent
 import com.example.ariandroid.presentation.viewmodel.LogInViewModel
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
@@ -45,12 +47,25 @@ import com.example.ariandroid.ui.theme.BlackCurrant
 @Composable
 fun LogInScreen(
     navigateToSignUp: () -> Unit,
+    navigateToMain: () -> Unit,
     viewModel: LogInViewModel = hiltViewModel()
 ) {
     val logInData by viewModel.loginData.collectAsState()
     val validationResult by viewModel.validationResult.collectAsState()
     val logInValidationEvent by viewModel.logInValidationEvent.collectAsState()
 
+    LaunchedEffect(logInValidationEvent) {
+        when (logInValidationEvent) {
+            is LogInValidationEvent.Success -> {
+                navigateToMain()
+                viewModel.clearValidationEvent()
+            }
+            is LogInValidationEvent.Error -> {
+                viewModel.clearValidationEvent()
+            }
+            else -> {}
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -109,7 +124,7 @@ fun LogInScreen(
                         OutlinedTextField(
                             value = logInData.email,
                             onValueChange = viewModel::onEmailChange, // -------- onEmailChange в LogInViewModel 28строка
-                            placeholder = { Text("Введите электронную почту", color = Color.Gray) },
+                            placeholder = { Text(stringResource(R.string.enter_email), color = Color.Gray) },
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(14.dp),
                             isError = validationResult.emailError != null,
@@ -175,7 +190,7 @@ fun LogInScreen(
                 ) {
                     // Войти
                     TextButton(
-                        onClick = {}, //viewModel::login
+                        onClick = { viewModel.login(navigateToMain) },
                         modifier = Modifier
                             .size(width = 350.dp, height = 50.dp)
                             .background(
@@ -190,18 +205,12 @@ fun LogInScreen(
                             textAlign = TextAlign.Center,
                         )
                     }
-                    // нанешная валидация
-                    if (validationResult.isSuccess) {
-                        Text(
-                            text = "заполнение валидно"
-                        )
-                    }
 
                     Spacer(modifier = Modifier.height(15.dp))
 
                     // Войти через Google
                     Button(
-                        onClick = {},
+                        onClick = { },
                         modifier = Modifier
                             .size(width = 350.dp, height = 50.dp),
                         colors = ButtonDefaults.buttonColors(
@@ -252,6 +261,7 @@ fun LogInScreen(
 @Composable
 fun LogInScreenPreview () {
     LogInScreen(
+        navigateToMain = {},
         navigateToSignUp = {},
     )
 }

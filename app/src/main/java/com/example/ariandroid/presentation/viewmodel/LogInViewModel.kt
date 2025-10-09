@@ -1,14 +1,16 @@
 package com.example.ariandroid.presentation.viewmodel
 
-//import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.ariandroid.presentation.domain.model.LogInData
 import com.example.ariandroid.presentation.domain.model.LogInValidationEvent
 import com.example.ariandroid.presentation.domain.model.ValidationResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,7 +42,6 @@ class LogInViewModel @Inject constructor() : ViewModel() {
     // Проверка валидности заполнения полей
     fun validateData(): Boolean {
         val data = _loginData.value
-        //val errors = mutableStateOf<String>() ------------- спросить у дипсика куда это пихать
 
         // Валидация почты
         val emailError = when {
@@ -67,21 +68,18 @@ class LogInViewModel @Inject constructor() : ViewModel() {
     }
 
 
-    // fun login заменить на заглушку по типу если валидация верная то там текст вывести что все ок
-//    fun login() {
-//        viewModelScope.launch {
-//            if (validateForm()) {
-//                // Simulate API call
-//                try {
-//                    // Here would be your actual login API call
-//                    delay(1000) // Simulate network delay
-//                    _loginEvent.value = LoginEvent.Success
-//                } catch (e: Exception) {
-//                    _loginEvent.value = LoginEvent.Error("Login failed: ${e.message}")
-//                }
-//            }
-//        }
-//    }
+    fun login(navigateToMain: () -> Unit) {
+        viewModelScope.launch {
+            if (validateData()) {
+                try {
+                    delay(1000)
+                    _loginValidationEvent.value = LogInValidationEvent.Success
+                } catch (e: Exception) {
+                    _loginValidationEvent.value = LogInValidationEvent.Error("${e.message}") // заглушка для следующей обработки
+                }
+            }
+        }
+    }
 
     // валидация почты
     private fun isValidEmail(email: String): Boolean {
