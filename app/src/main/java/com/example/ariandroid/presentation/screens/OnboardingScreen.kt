@@ -1,4 +1,4 @@
-package com.example.ariandroid.ui.screens
+package com.example.ariandroid.presentation.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -204,8 +204,8 @@ fun OnboardingProgressIndicator(
     }
 }
 
-@Composable
 @Preview(showBackground = true)
+@Composable
 fun OnboardingScreenPreview() {
     OnboardingScreen(
         navigateToAutorization = {}

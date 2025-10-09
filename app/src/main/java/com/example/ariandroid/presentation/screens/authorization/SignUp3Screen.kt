@@ -1,4 +1,4 @@
-package com.example.ariandroid.ui.screens.authorization
+package com.example.ariandroid.presentation.screens.authorization
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -277,8 +277,8 @@ fun SignUp3Screen(
 }
 
 
-@Composable
 @Preview(showBackground = true)
+@Composable
 fun SignUp3ScreenPreview () {
     SignUp3Screen(
         navigateToCongrats = {},

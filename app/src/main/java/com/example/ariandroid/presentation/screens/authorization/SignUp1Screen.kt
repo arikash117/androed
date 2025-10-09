@@ -1,4 +1,4 @@
-package com.example.ariandroid.ui.screens.authorization
+package com.example.ariandroid.presentation.screens.authorization
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,15 +15,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,9 +35,10 @@ import com.example.ariandroid.R
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
 
+
 @Composable
-fun SignUp2Screen(
-    navigateToSignUp3: () -> Unit,
+fun SignUp1Screen(
+    navigateToSignUp2: () -> Unit,
     navigateBack: () -> Unit,
 ) {
 
@@ -50,31 +48,32 @@ fun SignUp2Screen(
             .background(Background),
         contentAlignment = Alignment.Center
     ) {
-        Column (
+        Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 24.dp).padding(top = 16.dp, bottom = 32.dp)
+                .padding(horizontal = 24.dp)
+                .padding(top = 16.dp, bottom = 32.dp)
                 .systemBarsPadding()
         ) {
             //Заголовок + форма
-            Column (
+            Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                Box (
+                Box(
                     contentAlignment = Alignment.CenterStart,
                     modifier = Modifier
                         .fillMaxWidth()
                 ) {
-                    Image (
+                    Image(
                         painter = painterResource(id = R.drawable.left_arrow),
-                        contentDescription = "Google icon",
-                        modifier = Modifier.size(20.dp).clickable { navigateBack() }
+                        contentDescription = "Left arrow",
+                        modifier = Modifier.size(20.dp).clickable(onClick = {navigateBack()})
                     )
 
-                    Text (
+                    Text(
                         text = stringResource(R.string.create_account_title),
                         style = MaterialTheme.typography.bodyLarge,
                         fontSize = 24.sp,
@@ -85,14 +84,14 @@ fun SignUp2Screen(
 
                 Spacer(modifier = Modifier.height(100.dp))
 
-                Column (
+                Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    // Фамилия
+                    // Почта
                     Column {
                         Text(
-                            text = "Фамилия"
+                            text = stringResource(R.string.email_title_field)
                         )
 
                         Spacer(modifier = Modifier.height(4.dp))
@@ -100,135 +99,97 @@ fun SignUp2Screen(
                         OutlinedTextField(
                             value = TextFieldValue(""),
                             onValueChange = { },
-                            placeholder = { Text("Введите фамилию",
-                                color = Color.Gray,
-                                modifier = Modifier.fillMaxWidth()) },
-                            modifier = Modifier.fillMaxWidth(),
+                            placeholder = {
+                                Text(
+                                    stringResource(R.string.enter_email),
+                                    color = Color.Gray,
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+                            },
                             shape = RoundedCornerShape(14.dp),
+                            modifier = Modifier.fillMaxWidth(),
                             singleLine = true
                         )
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Имя
+                    // Придумайте пароль
                     Column {
                         Text(
-                            text = "Имя"
+                            text = stringResource(R.string.password_field_title)
                         )
-
                         Spacer(modifier = Modifier.height(4.dp))
 
                         OutlinedTextField(
                             value = TextFieldValue(""),
                             onValueChange = { },
-                            placeholder = { Text("Введите имя",
-                                color = Color.Gray,
-                                modifier = Modifier.fillMaxWidth()) },
+                            placeholder = { Text(stringResource(R.string.enter_password), color = Color.Gray) },
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(14.dp),
-                            singleLine = true
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    // Отчество
-                    Column {
-                        Text(
-                            text = "Отчество"
-                        )
-
-                        Spacer(modifier = Modifier.height(4.dp))
-
-                        OutlinedTextField(
-                            value = TextFieldValue(""),
-                            onValueChange = { },
-                            placeholder = { Text("Введите отчество",
-                                color = Color.Gray,
-                                modifier = Modifier.fillMaxWidth()) },
-                            modifier = Modifier.fillMaxWidth(),
-                            shape = RoundedCornerShape(14.dp),
-                            singleLine = true
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    // Дата
-                    Column {
-                        Text(
-                            text = "Дата рождения"
-                        )
-
-                        Spacer(modifier = Modifier.height(4.dp))
-
-                        OutlinedTextField(
-                            value = TextFieldValue(""),
-                            onValueChange = { },
-                            placeholder = { Text("DD/MM/YYYY",
-                                color = Color.Gray,
-                                modifier = Modifier.fillMaxWidth()) },
-                            modifier = Modifier.fillMaxWidth(),
-                            shape = RoundedCornerShape(14.dp),
-                            singleLine = true,
-                            leadingIcon = {
+                            trailingIcon = {
                                 Image(
-                                    painter = painterResource(id = R.drawable.calendar),
+                                    painter = painterResource(id = R.drawable.visible),
                                     contentDescription = "Visible icon",
-                                    modifier = Modifier.size(20.dp)
+                                    modifier = Modifier.size(15.dp)
+                                )
+                            }
+                        )
+
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Повторите пароль
+                    Column {
+                        Text(
+                            text = stringResource(R.string.repeat_password_field_title)
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+
+                        OutlinedTextField(
+                            value = TextFieldValue(""),
+                            onValueChange = { },
+                            placeholder = { Text(stringResource(R.string.enter_password), color = Color.Gray) },
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(14.dp),
+                            trailingIcon = {
+                                Image(
+                                    painter = painterResource(id = R.drawable.visible),
+                                    contentDescription = "Visible icon",
+                                    modifier = Modifier.size(15.dp)
                                 )
                             }
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(32.dp))
 
-                    Column (
-                        modifier = Modifier.fillMaxWidth()
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.height(40.dp)
                     ) {
-                        Text( text = "Пол" )
+                        Checkbox(
+                            checked = false,
+                            onCheckedChange = { },
+                            modifier = Modifier.size(20.dp),
+                        )
 
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.height(40.dp).fillMaxWidth(),
-                        ) {
-                            val maleSelected = remember { mutableStateOf(true) }
-                            val femaleSelected = remember { mutableStateOf(false) }
-                            // Мужской
-                            RadioButton(
-                                selected = maleSelected.value,
-                                onClick = { },
-                                colors = RadioButtonDefaults.colors(
-                                    selectedColor = Color.Black,
-                                    unselectedColor = Color.Gray
-                                )
-                            )
-                            Text( text = "Мужской")
+                        Spacer(modifier = Modifier.width(10.dp))
 
-                            Spacer(modifier = Modifier.width(10.dp))
-
-                            //Женский
-                            RadioButton(
-                                selected = femaleSelected.value,
-                                onClick = { },
-                                colors = RadioButtonDefaults.colors(
-                                    selectedColor = Color.Black,
-                                    unselectedColor = Color.Gray
-                                )
-                            )
-                            Text(text = "Женский")
-                        }
-
+                        Text(
+                            text = stringResource(R.string.terms_agreement),
+                            style = MaterialTheme.typography.bodyLarge.copy(lineHeight = 14.sp),
+                            fontSize = 12.sp,
+                        )
                     }
-
                 }
             }
 
             Spacer(modifier = Modifier.weight(1f))
 
             TextButton(
-                onClick = { navigateToSignUp3() },
+                onClick = { navigateToSignUp2() },
                 modifier = Modifier
                     .size(width = 350.dp, height = 50.dp)
                     .background(
@@ -247,11 +208,11 @@ fun SignUp2Screen(
     }
 }
 
-@Composable
 @Preview(showBackground = true)
-fun SignUp2ScreenPreview () {
-    SignUp2Screen(
-        navigateToSignUp3 = {},
+@Composable
+fun SignUp1ScreenPreview () {
+    SignUp1Screen(
+        navigateToSignUp2 = {},
         navigateBack = {},
     )
 }

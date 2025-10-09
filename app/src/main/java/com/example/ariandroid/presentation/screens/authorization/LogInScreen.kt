@@ -1,4 +1,4 @@
-package com.example.ariandroid.ui.screens.authorization
+package com.example.ariandroid.presentation.screens.authorization
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -216,8 +216,8 @@ fun LogInScreen(
     }
 }
 
-@Composable
 @Preview(showBackground = true)
+@Composable
 fun LogInScreenPreview () {
     LogInScreen(
         navigateToSignUp = {},
