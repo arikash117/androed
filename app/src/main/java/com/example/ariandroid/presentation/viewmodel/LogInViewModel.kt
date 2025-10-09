@@ -6,7 +6,7 @@ import com.example.ariandroid.presentation.domain.model.LogInData
 import com.example.ariandroid.presentation.domain.model.LogInValidationEvent
 import com.example.ariandroid.presentation.domain.model.ValidationResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
+//import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -72,7 +72,7 @@ class LogInViewModel @Inject constructor() : ViewModel() {
         viewModelScope.launch {
             if (validateData()) {
                 try {
-                    delay(1000)
+                    //delay(1000)
                     _loginValidationEvent.value = LogInValidationEvent.Success
                 } catch (e: Exception) {
                     _loginValidationEvent.value = LogInValidationEvent.Error("${e.message}") // заглушка для следующей обработки
