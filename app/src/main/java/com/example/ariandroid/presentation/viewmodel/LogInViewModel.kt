@@ -22,7 +22,7 @@ class LogInViewModel @Inject constructor() : ViewModel() {
     val validationResult: StateFlow<ValidationResult> = _validationResult.asStateFlow()
 
     private val _loginValidationEvent = MutableStateFlow<LogInValidationEvent?>(null)
-    val loginEvent: StateFlow<LogInValidationEvent?> = _loginValidationEvent.asStateFlow()
+    val logInValidationEvent: StateFlow<LogInValidationEvent?> = _loginValidationEvent.asStateFlow()
 
 
     // функции
