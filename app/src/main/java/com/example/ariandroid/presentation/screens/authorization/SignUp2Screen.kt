@@ -22,19 +22,22 @@ import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.ariandroid.R
+import com.example.ariandroid.presentation.domain.model.SignUpValidationEvent
+import com.example.ariandroid.presentation.viewmodel.SignUp2ViewModel
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
 
@@ -42,7 +45,24 @@ import com.example.ariandroid.ui.theme.BlackCurrant
 fun SignUp2Screen(
     navigateToSignUp3: () -> Unit,
     navigateBack: () -> Unit,
+    viewModel: SignUp2ViewModel = hiltViewModel()
 ) {
+    val signupData by viewModel.signupData.collectAsState()
+    val validationSignUpResult by viewModel.validationSignUpResult.collectAsState()
+    val signUpValidationEvent by viewModel.signUpValidationEvent.collectAsState()
+
+    LaunchedEffect(signUpValidationEvent) {
+        when (signUpValidationEvent) {
+            is SignUpValidationEvent.Success -> {
+                navigateToSignUp3()
+                viewModel.clearValidationEvent()
+            }
+            is SignUpValidationEvent.Error -> {
+                viewModel.clearValidationEvent()
+            }
+            else -> {}
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -98,14 +118,23 @@ fun SignUp2Screen(
                         Spacer(modifier = Modifier.height(4.dp))
 
                         OutlinedTextField(
-                            value = TextFieldValue(""),
-                            onValueChange = { },
+                            value = signupData.surname,
+                            onValueChange = viewModel::onSurnameChange,
                             placeholder = { Text("Введите фамилию",
                                 color = Color.Gray,
                                 modifier = Modifier.fillMaxWidth()) },
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(14.dp),
-                            singleLine = true
+                            singleLine = true,
+                            isError = validationSignUpResult.surnameError != null,
+                            supportingText = {
+                                if (validationSignUpResult.surnameError != null) {
+                                    Text(
+                                        text = validationSignUpResult.surnameError!!,
+                                        color = Color.Red,
+                                    )
+                                }
+                            },
                         )
                     }
 
@@ -120,14 +149,23 @@ fun SignUp2Screen(
                         Spacer(modifier = Modifier.height(4.dp))
 
                         OutlinedTextField(
-                            value = TextFieldValue(""),
-                            onValueChange = { },
+                            value = signupData.name,
+                            onValueChange = viewModel::onNameChange,
                             placeholder = { Text("Введите имя",
                                 color = Color.Gray,
                                 modifier = Modifier.fillMaxWidth()) },
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(14.dp),
-                            singleLine = true
+                            singleLine = true,
+                            isError = validationSignUpResult.nameError != null,
+                            supportingText = {
+                                if (validationSignUpResult.nameError != null) {
+                                    Text(
+                                        text = validationSignUpResult.nameError!!,
+                                        color = Color.Red,
+                                    )
+                                }
+                            },
                         )
                     }
 
@@ -142,14 +180,23 @@ fun SignUp2Screen(
                         Spacer(modifier = Modifier.height(4.dp))
 
                         OutlinedTextField(
-                            value = TextFieldValue(""),
-                            onValueChange = { },
+                            value = signupData.lastName,
+                            onValueChange = viewModel::onLastNameChange,
                             placeholder = { Text("Введите отчество",
                                 color = Color.Gray,
                                 modifier = Modifier.fillMaxWidth()) },
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(14.dp),
-                            singleLine = true
+                            singleLine = true,
+                            isError = validationSignUpResult.lastNameError != null,
+                            supportingText = {
+                                if (validationSignUpResult.lastNameError != null) {
+                                    Text(
+                                        text = validationSignUpResult.lastNameError!!,
+                                        color = Color.Red,
+                                    )
+                                }
+                            },
                         )
                     }
 
@@ -164,21 +211,29 @@ fun SignUp2Screen(
                         Spacer(modifier = Modifier.height(4.dp))
 
                         OutlinedTextField(
-                            value = TextFieldValue(""),
-                            onValueChange = { },
+                            value = signupData.birthDate,
+                            onValueChange = viewModel::onBirthDateChange,
                             placeholder = { Text("DD/MM/YYYY",
                                 color = Color.Gray,
                                 modifier = Modifier.fillMaxWidth()) },
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(14.dp),
-                            singleLine = true,
                             leadingIcon = {
                                 Image(
                                     painter = painterResource(id = R.drawable.calendar),
                                     contentDescription = "Visible icon",
                                     modifier = Modifier.size(20.dp)
                                 )
-                            }
+                            },
+                            isError = validationSignUpResult.birthDateError != null,
+                            supportingText = {
+                                if (validationSignUpResult.birthDateError != null) {
+                                    Text(
+                                        text = validationSignUpResult.birthDateError!!,
+                                        color = Color.Red,
+                                    )
+                                }
+                            },
                         )
                     }
 
@@ -193,12 +248,11 @@ fun SignUp2Screen(
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier.height(40.dp).fillMaxWidth(),
                         ) {
-                            val maleSelected = remember { mutableStateOf(true) }
-                            val femaleSelected = remember { mutableStateOf(false) }
+                            val sex = signupData.sex
                             // Мужской
                             RadioButton(
-                                selected = maleSelected.value,
-                                onClick = { },
+                                selected = sex == "male",
+                                onClick = { viewModel.onSexChange("male") },
                                 colors = RadioButtonDefaults.colors(
                                     selectedColor = Color.Black,
                                     unselectedColor = Color.Gray
@@ -210,8 +264,8 @@ fun SignUp2Screen(
 
                             //Женский
                             RadioButton(
-                                selected = femaleSelected.value,
-                                onClick = { },
+                                selected = sex == "female",
+                                onClick = { viewModel.onSexChange("female") },
                                 colors = RadioButtonDefaults.colors(
                                     selectedColor = Color.Black,
                                     unselectedColor = Color.Gray
@@ -219,7 +273,14 @@ fun SignUp2Screen(
                             )
                             Text(text = "Женский")
                         }
-
+                        if (validationSignUpResult.sexError != null) {
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = validationSignUpResult.sexError!!,
+                                textAlign = TextAlign.Center ,
+                                color = Color.Red,
+                            )
+                        }
                     }
 
                 }
@@ -228,7 +289,7 @@ fun SignUp2Screen(
             Spacer(modifier = Modifier.weight(1f))
 
             TextButton(
-                onClick = { navigateToSignUp3() },
+                onClick = { viewModel.signup(navigateToSignUp3) },
                 modifier = Modifier
                     .size(width = 350.dp, height = 50.dp)
                     .background(

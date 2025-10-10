@@ -22,18 +22,23 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.ariandroid.R
+import com.example.ariandroid.presentation.domain.model.SignUpValidationEvent
+import com.example.ariandroid.presentation.viewmodel.SignUp3ViewModel
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
 
@@ -41,7 +46,24 @@ import com.example.ariandroid.ui.theme.BlackCurrant
 fun SignUp3Screen(
     navigateToCongrats: () -> Unit,
     navigateBack: () -> Unit,
+    viewModel: SignUp3ViewModel = hiltViewModel()
 ) {
+    val signupData by viewModel.signupData.collectAsState()
+    val validationSignUpResult by viewModel.validationSignUpResult.collectAsState()
+    val signUpValidationEvent by viewModel.signUpValidationEvent.collectAsState()
+
+    LaunchedEffect(signUpValidationEvent) {
+        when (signUpValidationEvent) {
+            is SignUpValidationEvent.Success -> {
+                navigateToCongrats()
+                viewModel.clearValidationEvent()
+            }
+            is SignUpValidationEvent.Error -> {
+                viewModel.clearValidationEvent()
+            }
+            else -> {}
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -136,7 +158,7 @@ fun SignUp3Screen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        // Фамилия
+                        // Номер водительского удостоверения
                         Column {
                             Text(
                                 text = stringResource(R.string.driver_id_field_title)
@@ -145,15 +167,24 @@ fun SignUp3Screen(
                             Spacer(modifier = Modifier.height(4.dp))
 
                             OutlinedTextField(
-                                value = TextFieldValue(""),
-                                onValueChange = { },
+                                value = signupData.driverID,
+                                onValueChange = viewModel::onDriverIDChange,
                                 shape = RoundedCornerShape(14.dp),
                                 placeholder = { Text(
                                     stringResource(R.string.driver_id),
                                     color = Color.Gray,
                                     modifier = Modifier.fillMaxWidth()) },
                                 modifier = Modifier.fillMaxWidth(),
-                                singleLine = true
+                                singleLine = true,
+                                isError = validationSignUpResult.driverIDError != null,
+                                supportingText = {
+                                    if (validationSignUpResult.driverIDError != null) {
+                                        Text(
+                                            text = validationSignUpResult.driverIDError!!,
+                                            color = Color.Red,
+                                        )
+                                    }
+                                },
                             )
                         }
 
@@ -168,8 +199,8 @@ fun SignUp3Screen(
                             Spacer(modifier = Modifier.height(4.dp))
 
                             OutlinedTextField(
-                                value = TextFieldValue(""),
-                                onValueChange = { },
+                                value = signupData.driverIDIssueDate,
+                                onValueChange = viewModel::onIDIssueDateChange,
                                 shape = RoundedCornerShape(14.dp),
                                 placeholder = { Text(
                                     stringResource(R.string.dd_mm_yyyy),
@@ -183,7 +214,16 @@ fun SignUp3Screen(
                                         contentDescription = "Visible icon",
                                         modifier = Modifier.size(20.dp)
                                     )
-                                }
+                                },
+                                isError = validationSignUpResult.driverIDIssueDateError != null,
+                                supportingText = {
+                                    if (validationSignUpResult.driverIDIssueDateError != null) {
+                                        Text(
+                                            text = validationSignUpResult.driverIDIssueDateError!!,
+                                            color = Color.Red,
+                                        )
+                                    }
+                                },
                             )
                         }
 
@@ -216,6 +256,14 @@ fun SignUp3Screen(
                                     text = stringResource(R.string.upload_photo)
                                 )
                             }
+//                            if (validationSignUpResult.uploadDriverIDError != null) {
+//                                Text(
+//                                    modifier = Modifier.fillMaxWidth(),
+//                                    text = validationSignUpResult.sexError!!,
+//                                    textAlign = TextAlign.Center ,
+//                                    color = Color.Red,
+//                                )
+//                            }
 
                         }
 
@@ -248,6 +296,14 @@ fun SignUp3Screen(
                                     text = stringResource(R.string.upload_photo)
                                 )
                             }
+//                            if (validationSignUpResult.uploadDriverIDError != null) {
+//                                Text(
+//                                    modifier = Modifier.fillMaxWidth(),
+//                                    text = validationSignUpResult.sexError!!,
+//                                    textAlign = TextAlign.Center ,
+//                                    color = Color.Red,
+//                                )
+//                            }
 
                         }
                     }
@@ -257,7 +313,7 @@ fun SignUp3Screen(
             Spacer(modifier = Modifier.weight(1f))
 
             TextButton(
-                onClick = { navigateToCongrats() },
+                onClick = { viewModel.signup(navigateToCongrats) },
                 modifier = Modifier
                     .size(width = 350.dp, height = 50.dp)
                     .background(

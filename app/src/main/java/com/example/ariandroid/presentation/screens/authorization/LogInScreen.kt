@@ -23,18 +23,23 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.ariandroid.R
+import com.example.ariandroid.presentation.domain.model.LogInValidationEvent
+import com.example.ariandroid.presentation.viewmodel.LogInViewModel
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
 
@@ -42,7 +47,25 @@ import com.example.ariandroid.ui.theme.BlackCurrant
 @Composable
 fun LogInScreen(
     navigateToSignUp: () -> Unit,
+    navigateToMain: () -> Unit,
+    viewModel: LogInViewModel = hiltViewModel()
 ) {
+    val logInData by viewModel.loginData.collectAsState()
+    val validationResult by viewModel.validationResult.collectAsState()
+    val logInValidationEvent by viewModel.logInValidationEvent.collectAsState()
+
+    LaunchedEffect(logInValidationEvent) {
+        when (logInValidationEvent) {
+            is LogInValidationEvent.Success -> {
+                navigateToMain()
+                viewModel.clearValidationEvent()
+            }
+            is LogInValidationEvent.Error -> {
+                viewModel.clearValidationEvent()
+            }
+            else -> {}
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -99,11 +122,20 @@ fun LogInScreen(
                         Spacer(modifier = Modifier.height(4.dp))
 
                         OutlinedTextField(
-                            value = TextFieldValue(""),
-                            onValueChange = { },
-                            placeholder = { Text("Введите электронную почту", color = Color.Gray) },
+                            value = logInData.email,
+                            onValueChange = viewModel::onEmailChange, // -------- onEmailChange в LogInViewModel 28строка
+                            placeholder = { Text(stringResource(R.string.enter_email), color = Color.Gray) },
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(14.dp),
+                            isError = validationResult.emailError != null,
+                            supportingText = {
+                                if (validationResult.emailError != null) {
+                                    Text(
+                                        text = validationResult.emailError!!,
+                                        color = Color.Red,
+                                    )
+                                }
+                            },
                         )
                     }
 
@@ -117,8 +149,8 @@ fun LogInScreen(
                         Spacer(modifier = Modifier.height(4.dp))
 
                         OutlinedTextField(
-                            value = TextFieldValue(""),
-                            onValueChange = { },
+                            value = logInData.password,
+                            onValueChange = viewModel::onPasswordChange,
                             placeholder = { Text(stringResource(R.string.enter_password), color = Color.Gray) },
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(14.dp),
@@ -128,7 +160,16 @@ fun LogInScreen(
                                     contentDescription = "Visible icon",
                                     modifier = Modifier.size(15.dp)
                                 )
-                            }
+                            },
+                            isError = validationResult.passError != null,
+                            supportingText = {
+                                if (validationResult.passError != null) {
+                                    Text(
+                                        text = validationResult.passError!!,
+                                        color = Color.Red,
+                                    )
+                                }
+                            },
                         )
                     }
 
@@ -149,7 +190,7 @@ fun LogInScreen(
                 ) {
                     // Войти
                     TextButton(
-                        onClick = {},
+                        onClick = { viewModel.login(navigateToMain) },
                         modifier = Modifier
                             .size(width = 350.dp, height = 50.dp)
                             .background(
@@ -169,7 +210,7 @@ fun LogInScreen(
 
                     // Войти через Google
                     Button(
-                        onClick = {},
+                        onClick = { },
                         modifier = Modifier
                             .size(width = 350.dp, height = 50.dp),
                         colors = ButtonDefaults.buttonColors(
@@ -220,6 +261,7 @@ fun LogInScreen(
 @Composable
 fun LogInScreenPreview () {
     LogInScreen(
+        navigateToMain = {},
         navigateToSignUp = {},
     )
 }

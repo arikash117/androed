@@ -32,10 +32,9 @@ import com.example.ariandroid.R
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
 
-@Preview
 @Composable
 fun Congratulations(
-
+    toNextScreen: () -> Unit,
 ) {
 
     Box(
@@ -99,7 +98,7 @@ fun Congratulations(
             Spacer(modifier = Modifier.weight(1f))
 
             TextButton(
-                onClick = {},
+                onClick = { toNextScreen() },
                 modifier = Modifier
                     .size(width = 350.dp, height = 50.dp)
                     .background(
@@ -116,4 +115,12 @@ fun Congratulations(
 
         }
     }
+}
+
+@Preview
+@Composable
+fun CongratulationsPreview () {
+    Congratulations(
+        toNextScreen = {},
+    )
 }

@@ -100,6 +100,9 @@ fun NavGraph() {
                 navigateToSignUp = {
                     navController.navigate("SignUp1Screen") {}
                 },
+                navigateToMain = {
+                    navController.navigate("AuthorizationScreen")
+                },
             )
         }
 
@@ -141,7 +144,11 @@ fun NavGraph() {
 
         // Навигация страницы успешной регистрации
         composable ("Congratulations") {
-            Congratulations()
+            Congratulations(
+                toNextScreen = {
+                    navController.navigate("AuthorizationScreen")
+                }
+            )
         }
 
         // Навигация на экран нет соединения
