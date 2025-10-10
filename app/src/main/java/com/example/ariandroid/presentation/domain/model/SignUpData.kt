@@ -12,6 +12,7 @@ data class SignUpData (
     val name: String = "",
     val lastName: String = "",
     val birthDate: String = "",
+    val sex: String? = null,
 
     val driverID: String = "",
     val driverIDIssueDate: String = "",
@@ -29,6 +30,7 @@ data class ValidationSignUpResult(
     val nameError: String? = null,
     val lastNameError: String? = null,
     val birthDateError: String? = null,
+    val sexError: String? = null,
 
     val driverIDError: String? = null,
     val driverIDIssueDateError: String? = null,
