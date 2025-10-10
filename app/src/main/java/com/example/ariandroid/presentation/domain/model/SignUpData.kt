@@ -12,7 +12,6 @@ data class SignUpData (
     val name: String = "",
     val lastName: String = "",
     val birthDate: String = "",
-    val sex: String = "",
 
     val driverID: String = "",
     val driverIDIssueDate: String = "",
@@ -21,17 +20,18 @@ data class SignUpData (
 data class ValidationSignUpResult(
     val isSuccess: Boolean = false,
 
-    val emailError: String,
-    val passwordError: String,
-    val termsError: Boolean = false,
+    val emailError: String? = null,
+    val passwordError: String? = null,
+    val confirmPasswordError: String? = null,
+    val termsError: String? = null,
 
-    val surnameError: String,
-    val nameError: String,
-    val lastNameError: String,
-    val birthDateError: String,
+    val surnameError: String? = null,
+    val nameError: String? = null,
+    val lastNameError: String? = null,
+    val birthDateError: String? = null,
 
-    val driverIDError: String,
-    val driverIDIssueDateError: String,
+    val driverIDError: String? = null,
+    val driverIDIssueDateError: String? = null,
 )
 
 sealed class SignUpValidationEvent {
