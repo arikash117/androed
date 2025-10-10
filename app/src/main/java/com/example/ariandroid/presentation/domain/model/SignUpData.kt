@@ -16,6 +16,8 @@ data class SignUpData (
 
     val driverID: String = "",
     val driverIDIssueDate: String = "",
+//    val uploadDriverID: Boolean = false,
+//    val uploadPassport: Boolean = false,
 )
 
 data class ValidationSignUpResult(
@@ -34,6 +36,8 @@ data class ValidationSignUpResult(
 
     val driverIDError: String? = null,
     val driverIDIssueDateError: String? = null,
+//    val uploadDriverIDError: String? = null,
+//    val uploadPassportError: String? = null,
 )
 
 sealed class SignUpValidationEvent {
