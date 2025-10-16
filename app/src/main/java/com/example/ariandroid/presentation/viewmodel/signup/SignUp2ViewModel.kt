@@ -1,4 +1,4 @@
-package com.example.ariandroid.presentation.viewmodel
+package com.example.ariandroid.presentation.viewmodel.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
