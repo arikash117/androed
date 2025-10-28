@@ -1,5 +1,6 @@
 package com.example.ariandroid.presentation.viewmodel.signup
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ariandroid.presentation.domain.model.SignUpData
@@ -25,6 +26,9 @@ class SignUp3ViewModel @Inject constructor() : ViewModel() {
     private val _signupValidationEvent = MutableStateFlow<SignUpValidationEvent?>(null)
     val signUpValidationEvent: StateFlow<SignUpValidationEvent?> = _signupValidationEvent.asStateFlow()
 
+    fun onPFPChange(uri: Uri) {
+        _signupData.value = _signupData.value.copy(pfp = uri)
+    }
     fun onDriverIDChange(driverID: String) {
         _signupData.value = _signupData.value.copy(driverID = driverID)
         clearDriverIDError()

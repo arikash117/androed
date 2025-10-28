@@ -1,5 +1,7 @@
 package com.example.ariandroid.presentation.screens.authorization
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -36,6 +39,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
+import android.net.Uri
 import com.example.ariandroid.R
 import com.example.ariandroid.presentation.domain.model.SignUpValidationEvent
 import com.example.ariandroid.presentation.viewmodel.signup.SignUp3ViewModel
@@ -51,6 +56,14 @@ fun SignUp3Screen(
     val signupData by viewModel.signupData.collectAsState()
     val validationSignUpResult by viewModel.validationSignUpResult.collectAsState()
     val signUpValidationEvent by viewModel.signUpValidationEvent.collectAsState()
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        uri?.let {
+            viewModel.onPFPChange(it)
+        }
+    }
 
     LaunchedEffect(signUpValidationEvent) {
         when (signUpValidationEvent) {
@@ -123,16 +136,28 @@ fun SignUp3Screen(
                             Box(
                                 modifier = Modifier
                                     .size(100.dp)
-                                    .clip(CircleShape),
+                                    .clip(CircleShape)
+                                    .clickable{ launcher.launch("image/*") },
                                 contentAlignment = Alignment.Center
                             ) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.pfp),
-                                    contentDescription = "Profile photo",
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .clip(CircleShape)
-                                )
+                                if (signupData.pfp != null) {
+                                    AsyncImage(
+                                        model = signupData.pfp,
+                                        contentDescription = "Profile photo",
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .clip(CircleShape),
+                                        contentScale = ContentScale.Crop
+                                    )
+                                } else {
+                                    Image(
+                                        painter = painterResource(id = R.drawable.pfp),
+                                        contentDescription = "Profile photo placeholder",
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .clip(CircleShape)
+                                    )
+                                }
                             }
                             Image(
                                 painter = painterResource(id = R.drawable.add_pfp),
