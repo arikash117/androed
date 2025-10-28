@@ -1,7 +1,5 @@
 package com.example.ariandroid.presentation.screens.authorization
 
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -40,12 +38,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import android.net.Uri
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import com.example.ariandroid.R
+import com.example.ariandroid.presentation.domain.model.ImagePickerEvent
 import com.example.ariandroid.presentation.domain.model.SignUpValidationEvent
 import com.example.ariandroid.presentation.viewmodel.signup.SignUp3ViewModel
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
+import kotlinx.coroutines.delay
+import rememberImagePicker
 
 @Composable
 fun SignUp3Screen(
@@ -56,12 +60,31 @@ fun SignUp3Screen(
     val signupData by viewModel.signupData.collectAsState()
     val validationSignUpResult by viewModel.validationSignUpResult.collectAsState()
     val signUpValidationEvent by viewModel.signUpValidationEvent.collectAsState()
+    val imagePickerEvent by viewModel.imagePickerEvent.collectAsState()
 
-    val launcher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent()
-    ) { uri: Uri? ->
-        uri?.let {
-            viewModel.onPFPChange(it)
+    var showSnackbar by remember { mutableStateOf(false) }
+    var snackbarMessage by remember { mutableStateOf("") }
+
+
+    val imagePicker = rememberImagePicker(
+        onImageSelected = { uri ->
+            if (uri != null) {
+                viewModel.onPFPChange(uri)
+            }
+        },
+        onPermissionDenied = {
+            snackbarMessage = "Для выбора фото необходимо разрешение на доступ к галерее"
+            showSnackbar = true
+        }
+    )
+
+    LaunchedEffect(imagePickerEvent) {
+        when (imagePickerEvent) {
+            is ImagePickerEvent.PickImage -> {
+                imagePicker.pickImage()
+                viewModel.clearImagePickerEvent()
+            }
+            else -> {}
         }
     }
 
@@ -75,6 +98,32 @@ fun SignUp3Screen(
                 viewModel.clearValidationEvent()
             }
             else -> {}
+        }
+    }
+
+    if (showSnackbar) {
+        LaunchedEffect(showSnackbar) {
+            delay(3000)
+            showSnackbar = false
+        }
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            contentAlignment = Alignment.TopCenter
+        ) {
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(8.dp),
+                color = Color(0xFF323232),
+            ) {
+                Text(
+                    text = snackbarMessage,
+                    color = Color.White,
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
         }
     }
 
@@ -137,7 +186,7 @@ fun SignUp3Screen(
                                 modifier = Modifier
                                     .size(100.dp)
                                     .clip(CircleShape)
-                                    .clickable{ launcher.launch("image/*") },
+                                    .clickable{ viewModel.triggerImagePicker() },
                                 contentAlignment = Alignment.Center
                             ) {
                                 if (signupData.pfp != null) {

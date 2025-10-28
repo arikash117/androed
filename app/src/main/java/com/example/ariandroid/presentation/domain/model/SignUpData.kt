@@ -46,3 +46,7 @@ sealed class SignUpValidationEvent {
     object Success : SignUpValidationEvent()
     data class Error(val message: String) : SignUpValidationEvent()
 }
+
+sealed class ImagePickerEvent {
+    object PickImage : ImagePickerEvent()
+}
