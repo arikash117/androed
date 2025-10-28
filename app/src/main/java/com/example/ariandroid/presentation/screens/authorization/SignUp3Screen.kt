@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -36,11 +37,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import com.example.ariandroid.R
+import com.example.ariandroid.presentation.domain.model.ImagePickerEvent
 import com.example.ariandroid.presentation.domain.model.SignUpValidationEvent
-import com.example.ariandroid.presentation.viewmodel.SignUp3ViewModel
+import com.example.ariandroid.presentation.viewmodel.signup.SignUp3ViewModel
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
+import kotlinx.coroutines.delay
+import rememberImagePicker
 
 @Composable
 fun SignUp3Screen(
@@ -51,6 +60,33 @@ fun SignUp3Screen(
     val signupData by viewModel.signupData.collectAsState()
     val validationSignUpResult by viewModel.validationSignUpResult.collectAsState()
     val signUpValidationEvent by viewModel.signUpValidationEvent.collectAsState()
+    val imagePickerEvent by viewModel.imagePickerEvent.collectAsState()
+
+    var showSnackbar by remember { mutableStateOf(false) }
+    var snackbarMessage by remember { mutableStateOf("") }
+
+
+    val imagePicker = rememberImagePicker(
+        onImageSelected = { uri ->
+            if (uri != null) {
+                viewModel.onPFPChange(uri)
+            }
+        },
+        onPermissionDenied = {
+            snackbarMessage = "Для выбора фото необходимо разрешение на доступ к галерее"
+            showSnackbar = true
+        }
+    )
+
+    LaunchedEffect(imagePickerEvent) {
+        when (imagePickerEvent) {
+            is ImagePickerEvent.PickImage -> {
+                imagePicker.pickImage()
+                viewModel.clearImagePickerEvent()
+            }
+            else -> {}
+        }
+    }
 
     LaunchedEffect(signUpValidationEvent) {
         when (signUpValidationEvent) {
@@ -62,6 +98,32 @@ fun SignUp3Screen(
                 viewModel.clearValidationEvent()
             }
             else -> {}
+        }
+    }
+
+    if (showSnackbar) {
+        LaunchedEffect(showSnackbar) {
+            delay(3000)
+            showSnackbar = false
+        }
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            contentAlignment = Alignment.TopCenter
+        ) {
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(8.dp),
+                color = Color(0xFF323232),
+            ) {
+                Text(
+                    text = snackbarMessage,
+                    color = Color.White,
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
         }
     }
 
@@ -123,16 +185,28 @@ fun SignUp3Screen(
                             Box(
                                 modifier = Modifier
                                     .size(100.dp)
-                                    .clip(CircleShape),
+                                    .clip(CircleShape)
+                                    .clickable{ viewModel.triggerImagePicker() },
                                 contentAlignment = Alignment.Center
                             ) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.pfp),
-                                    contentDescription = "Profile photo",
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .clip(CircleShape)
-                                )
+                                if (signupData.pfp != null) {
+                                    AsyncImage(
+                                        model = signupData.pfp,
+                                        contentDescription = "Profile photo",
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .clip(CircleShape),
+                                        contentScale = ContentScale.Crop
+                                    )
+                                } else {
+                                    Image(
+                                        painter = painterResource(id = R.drawable.pfp),
+                                        contentDescription = "Profile photo placeholder",
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .clip(CircleShape)
+                                    )
+                                }
                             }
                             Image(
                                 painter = painterResource(id = R.drawable.add_pfp),

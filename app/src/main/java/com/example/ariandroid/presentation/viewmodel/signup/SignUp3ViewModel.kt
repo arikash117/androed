@@ -1,7 +1,9 @@
-package com.example.ariandroid.presentation.viewmodel
+package com.example.ariandroid.presentation.viewmodel.signup
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.ariandroid.presentation.domain.model.ImagePickerEvent
 import com.example.ariandroid.presentation.domain.model.SignUpData
 import com.example.ariandroid.presentation.domain.model.SignUpValidationEvent
 import com.example.ariandroid.presentation.domain.model.ValidationSignUpResult
@@ -24,7 +26,19 @@ class SignUp3ViewModel @Inject constructor() : ViewModel() {
     val validationSignUpResult: StateFlow<ValidationSignUpResult> = _validationSignUpResult.asStateFlow()
     private val _signupValidationEvent = MutableStateFlow<SignUpValidationEvent?>(null)
     val signUpValidationEvent: StateFlow<SignUpValidationEvent?> = _signupValidationEvent.asStateFlow()
+    private val _imagePickerEvent = MutableStateFlow<ImagePickerEvent?>(null)
+    val imagePickerEvent: StateFlow<ImagePickerEvent?> = _imagePickerEvent.asStateFlow()
 
+    fun clearImagePickerEvent() {
+        _imagePickerEvent.value = null
+    }
+    fun triggerImagePicker() {
+        _imagePickerEvent.value = ImagePickerEvent.PickImage
+    }
+
+    fun onPFPChange(uri: Uri) {
+        _signupData.value = _signupData.value.copy(pfp = uri)
+    }
     fun onDriverIDChange(driverID: String) {
         _signupData.value = _signupData.value.copy(driverID = driverID)
         clearDriverIDError()

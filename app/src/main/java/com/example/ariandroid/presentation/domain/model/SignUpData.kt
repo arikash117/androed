@@ -1,5 +1,6 @@
 package com.example.ariandroid.presentation.domain.model
 
+import android.net.Uri
 
 
 data class SignUpData (
@@ -8,6 +9,7 @@ data class SignUpData (
     val confirmPassword: String = "",
     val acceptTerms: Boolean = false,
 
+    val pfp: Uri? = null,
     val surname: String = "",
     val name: String = "",
     val lastName: String = "",
@@ -43,4 +45,8 @@ data class ValidationSignUpResult(
 sealed class SignUpValidationEvent {
     object Success : SignUpValidationEvent()
     data class Error(val message: String) : SignUpValidationEvent()
+}
+
+sealed class ImagePickerEvent {
+    object PickImage : ImagePickerEvent()
 }
