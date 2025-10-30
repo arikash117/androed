@@ -5,9 +5,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.ariandroid.presentation.screens.AuthorizationScreen
 import com.example.ariandroid.presentation.screens.NoConnectionScreen
 import com.example.ariandroid.presentation.screens.OnboardingScreen
@@ -17,7 +19,8 @@ import com.example.ariandroid.presentation.screens.authorization.Congratulations
 import com.example.ariandroid.presentation.screens.authorization.LogInScreen
 import com.example.ariandroid.presentation.screens.authorization.SignUp1Screen
 import com.example.ariandroid.presentation.screens.authorization.SignUp2Screen
-import com.example.ariandroid.presentation.screens.homesearch.HomeScreen
+import com.example.ariandroid.presentation.screens.home.HomeScreen
+import com.example.ariandroid.presentation.screens.home.SearchResultScreen
 import com.example.ariandroid.presentation.viewmodel.ConnectionViewModel
 
 @Composable
@@ -167,6 +170,33 @@ fun NavGraph() {
                 navigateToHome = {},
                 navigateToSettings = {},
                 navigateToBookmarks = {},
+                navigateToSearch = { query ->
+                    navController.navigate("SearchResultScreen/$query")
+                },
+            )
+        }
+
+        // Навигация страницы SearchResultScreen
+        composable (
+            "SearchResultScreen/{searchQuery}",
+            arguments = listOf(
+                navArgument("searchQuery") {
+                    type = NavType.StringType
+                    defaultValue = ""
+                    nullable = true
+                }
+            )
+        ) { backStackEntry ->
+            val searchQuery = backStackEntry.arguments?.getString("searchQuery")
+
+            SearchResultScreen(
+                searchQuery = searchQuery,
+                navigateToHome = {},
+                navigateToSettings = {},
+                navigateToBookmarks = {},
+                navigateBack = {
+                    navController.navigate("HomeScreen")
+                },
             )
         }
     }

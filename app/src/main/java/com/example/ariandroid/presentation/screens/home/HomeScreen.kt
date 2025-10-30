@@ -18,6 +18,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,8 +43,10 @@ fun HomeScreen(
     navigateToHome: () -> Unit = {},
     navigateToBookmarks: () -> Unit = {},
     navigateToSettings: () -> Unit = {},
-    navigateToSearch: () -> Unit = {},
+    navigateToSearch: (String) -> Unit = {},
 ) {
+    var searchQuery by remember { mutableStateOf("") }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -68,8 +74,8 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.weight(1f))
 
                     OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
+                        value = searchQuery,
+                        onValueChange = {searchQuery = it},
                         placeholder = {
                             Text(
                                 stringResource(R.string.enter_car_brand),
@@ -88,7 +94,7 @@ fun HomeScreen(
                             Image(
                                 painter = painterResource(id = R.drawable.search),
                                 contentDescription = "Search icon",
-                                modifier = Modifier.size(30.dp).clickable {navigateToSearch()},
+                                modifier = Modifier.size(30.dp).clickable {navigateToSearch(searchQuery)},
                             )
                         }
                     )
