@@ -17,6 +17,7 @@ import com.example.ariandroid.presentation.screens.authorization.Congratulations
 import com.example.ariandroid.presentation.screens.authorization.LogInScreen
 import com.example.ariandroid.presentation.screens.authorization.SignUp1Screen
 import com.example.ariandroid.presentation.screens.authorization.SignUp2Screen
+import com.example.ariandroid.presentation.screens.homesearch.HomeScreen
 import com.example.ariandroid.presentation.viewmodel.ConnectionViewModel
 
 @Composable
@@ -101,7 +102,7 @@ fun NavGraph() {
                     navController.navigate("SignUp1Screen") {}
                 },
                 navigateToMain = {
-                    navController.navigate("AuthorizationScreen")
+                    navController.navigate("HomeScreen")
                 },
             )
         }
@@ -157,6 +158,15 @@ fun NavGraph() {
                 onRetry = {
                     connectionViewModel.refreshConnection()
                 }
+            )
+        }
+
+        // Навигация страницы HomeScreen
+        composable ("HomeScreen") {
+            HomeScreen(
+                navigateToHome = {},
+                navigateToSettings = {},
+                navigateToBookmarks = {},
             )
         }
     }
