@@ -27,14 +27,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.ariandroid.R
+import com.example.ariandroid.presentation.domain.model.Car
 import com.example.ariandroid.ui.theme.BlackCurrant
 
-@Preview
 @Composable
 fun CarCard(
+    car: Car,
 //    navigateToBooking: () -> Unit,
 //    navigateToDetails: () -> Unit
 ) {
@@ -62,20 +62,20 @@ fun CarCard(
                     horizontalAlignment = Alignment.Start
                 ) {
                     Text(
-                        text = "S 500 Sedan",
+                        text = "${car.model} ${car.bodyType}",
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold
                     )
 
                     Text(
-                        text = "Mercedes-Benz",
+                        text = car.brand,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(bottom = 16.dp)
                     )
 
                     Text(
-                        text = "2500₽ в день",
+                        text = "${car.price}${car.currency} в день",
                         fontWeight = FontWeight.Bold,
                         color = Color.Black,
                         modifier = Modifier.padding(bottom = 8.dp)
@@ -89,7 +89,7 @@ fun CarCard(
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
-                            text = "A/T",
+                            text = car.transmission,
                             style = MaterialTheme.typography.bodyMedium
                         )
                         Spacer(modifier = Modifier.width(8.dp))
@@ -100,21 +100,23 @@ fun CarCard(
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
-                            text = "Бензин",
+                            text = car.fuelType,
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 }
 
-                Image(
-                    painter = painterResource(id = R.drawable.car_img),
-                    contentDescription = "car image",
-                    modifier = Modifier
-                        .size(150.dp),
-                        //.padding(start = 16.dp),
-                    contentScale = ContentScale.Fit
-                )
+                if (car.imageUrl!= null) {
+                    Image(
+                        painter = painterResource(id = car.imageUrl),
+                        contentDescription = "${car.brand} ${car.model}",
+                        modifier = Modifier
+                            .size(150.dp)
+                            .padding(start = 16.dp),
+                        contentScale = ContentScale.Fit
+                    )
+                }
             }
 
 

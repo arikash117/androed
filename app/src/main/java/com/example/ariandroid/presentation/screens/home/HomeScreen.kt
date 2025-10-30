@@ -1,7 +1,8 @@
-package com.example.ariandroid.presentation.screens.homesearch
+package com.example.ariandroid.presentation.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,8 +11,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsPadding
+//import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -26,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ariandroid.R
+import com.example.ariandroid.presentation.domain.model.mockCars
 import com.example.ariandroid.ui.components.CarCard
 import com.example.ariandroid.ui.components.NavBar
 import com.example.ariandroid.ui.theme.Background
@@ -35,13 +38,14 @@ import com.example.ariandroid.ui.theme.Background
 fun HomeScreen(
     navigateToHome: () -> Unit = {},
     navigateToBookmarks: () -> Unit = {},
-    navigateToSettings: () -> Unit = {}
+    navigateToSettings: () -> Unit = {},
+    navigateToSearch: () -> Unit = {},
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Background)
-            .systemBarsPadding(),
+            .background(Background),
+//            .systemBarsPadding(),
         contentAlignment = Alignment.BottomCenter
     ) {
         Column(
@@ -84,7 +88,7 @@ fun HomeScreen(
                             Image(
                                 painter = painterResource(id = R.drawable.search),
                                 contentDescription = "Search icon",
-                                modifier = Modifier.size(30.dp)
+                                modifier = Modifier.size(30.dp).clickable {navigateToSearch()},
                             )
                         }
                     )
@@ -107,8 +111,8 @@ fun HomeScreen(
                 modifier = Modifier
                     .padding(horizontal = 15.dp)
             ) {
-                items(10) {
-                    CarCard()
+                items(mockCars) { car ->
+                    CarCard(car = car)
                     Spacer(modifier = Modifier.height(16.dp))
                 }
             }
@@ -130,5 +134,6 @@ fun HomeScreenPreview() {
         navigateToHome = {},
         navigateToBookmarks = {},
         navigateToSettings = {},
+        navigateToSearch = {},
     )
 }
