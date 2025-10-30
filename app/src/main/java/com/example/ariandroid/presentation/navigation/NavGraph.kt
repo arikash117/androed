@@ -21,6 +21,7 @@ import com.example.ariandroid.presentation.screens.authorization.SignUp1Screen
 import com.example.ariandroid.presentation.screens.authorization.SignUp2Screen
 import com.example.ariandroid.presentation.screens.home.HomeScreen
 import com.example.ariandroid.presentation.screens.home.SearchResultScreen
+import com.example.ariandroid.presentation.screens.home.SettingsScreen
 import com.example.ariandroid.presentation.viewmodel.ConnectionViewModel
 
 @Composable
@@ -168,7 +169,9 @@ fun NavGraph() {
         composable ("HomeScreen") {
             HomeScreen(
                 navigateToHome = {},
-                navigateToSettings = {},
+                navigateToSettings = {
+                    navController.navigate("SettingsScreen")
+                },
                 navigateToBookmarks = {},
                 navigateToSearch = { query ->
                     navController.navigate("SearchResultScreen/$query")
@@ -197,6 +200,18 @@ fun NavGraph() {
                 navigateBack = {
                     navController.navigate("HomeScreen")
                 },
+            )
+        }
+
+        // Навигация страницы SettingsScreen
+        composable ("SettingsScreen") {
+            SettingsScreen(
+                navigateToHome = {
+                    navController.navigate("HomeScreen")
+                },
+                navigateToSettings = {},
+                navigateToBookmarks = {},
+                navigateToNext = {},
             )
         }
     }
