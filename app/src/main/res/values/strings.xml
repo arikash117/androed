@@ -38,4 +38,6 @@
     <string name="no_connection">Нет подключения к интернету</string>
     <string name="retry_connection">Проверьте подключение и повторите попытку</string>
     <string name="retry">Повторить попытку</string>
+    <string name="search_your_auto">Давайте найдем автомобиль</string>
+    <string name="enter_car_brand">Введите марку автомобиля</string>
 </resources>

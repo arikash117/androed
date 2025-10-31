@@ -5,9 +5,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.ariandroid.presentation.screens.AuthorizationScreen
 import com.example.ariandroid.presentation.screens.NoConnectionScreen
 import com.example.ariandroid.presentation.screens.OnboardingScreen
@@ -17,6 +19,11 @@ import com.example.ariandroid.presentation.screens.authorization.Congratulations
 import com.example.ariandroid.presentation.screens.authorization.LogInScreen
 import com.example.ariandroid.presentation.screens.authorization.SignUp1Screen
 import com.example.ariandroid.presentation.screens.authorization.SignUp2Screen
+import com.example.ariandroid.presentation.screens.home.HomeScreen
+import com.example.ariandroid.presentation.screens.home.LoadingScreen
+import com.example.ariandroid.presentation.screens.home.ProfileScreen
+import com.example.ariandroid.presentation.screens.home.SearchResultScreen
+import com.example.ariandroid.presentation.screens.home.SettingsScreen
 import com.example.ariandroid.presentation.viewmodel.ConnectionViewModel
 
 @Composable
@@ -28,7 +35,6 @@ fun NavGraph() {
 
     LaunchedEffect(hasInternet) {
         if (!hasInternet) {
-            // Если нет интернета, переходим на экран NoConnectionScreen
             if (navController.currentDestination?.route != "NoConnectionScreen") {
                 navController.navigate("NoConnectionScreen") {
                     // Очищаем бэкстек до сплэш-экрана
@@ -36,7 +42,6 @@ fun NavGraph() {
                 }
             }
         } else {
-            // Если интернет появился и мы на экране NoConnectionScreen, переходим на Authorization
             if (navController.currentDestination?.route == "NoConnectionScreen") {
                 navController.navigate("AuthorizationScreen") {
                     popUpTo("NoConnectionScreen") { inclusive = true }
@@ -101,7 +106,7 @@ fun NavGraph() {
                     navController.navigate("SignUp1Screen") {}
                 },
                 navigateToMain = {
-                    navController.navigate("AuthorizationScreen")
+                    navController.navigate("HomeScreen")
                 },
             )
         }
@@ -157,6 +162,98 @@ fun NavGraph() {
                 onRetry = {
                     connectionViewModel.refreshConnection()
                 }
+            )
+        }
+
+        // Навигация страницы HomeScreen
+        composable ("HomeScreen") {
+            HomeScreen(
+                navigateToHome = {},
+                navigateToSettings = {
+                    navController.navigate("SettingsScreen")
+                },
+                navigateToBookmarks = {},
+                navigateToSearch = { query ->
+                    navController.navigate("LoadingScreen/$query")
+                },
+            )
+        }
+
+        // Навигация страницы LoadingScreen
+        composable(
+            "LoadingScreen/{searchQuery}",
+            arguments = listOf(
+                navArgument("searchQuery") {
+                    type = NavType.StringType
+                    defaultValue = ""
+                    nullable = true
+                }
+            )
+        ) { backStackEntry ->
+            val searchQuery = backStackEntry.arguments?.getString("searchQuery")
+            LoadingScreen(
+                searchQuery = searchQuery,
+                onLoadingEnd = { query ->
+                    navController.navigate("SearchResultScreen/$query") {
+                        popUpTo("HomeScreen") {
+                            // Возвращаемся к HomeScreen вместо LoadingScreen
+                            saveState = true
+                        }
+                    }
+                }
+            )
+        }
+
+        // Навигация страницы SearchResultScreen
+        composable (
+            "SearchResultScreen/{searchQuery}",
+            arguments = listOf(
+                navArgument("searchQuery") {
+                    type = NavType.StringType
+                    defaultValue = ""
+                    nullable = true
+                }
+            )
+        ) { backStackEntry ->
+            val searchQuery = backStackEntry.arguments?.getString("searchQuery")
+
+            SearchResultScreen(
+                searchQuery = searchQuery,
+                navigateToHome = {},
+                navigateToSettings = {},
+                navigateToBookmarks = {},
+                navigateBack = {
+                    navController.navigate("HomeScreen")
+                },
+            )
+        }
+
+        // Навигация страницы SettingsScreen
+        composable ("SettingsScreen") {
+            SettingsScreen(
+                navigateToHome = {
+                    navController.navigate("HomeScreen")
+                },
+                navigateToSettings = {},
+                navigateToBookmarks = {},
+                navigateToNext = {},
+                navigateToProfile = {
+                    navController.navigate("ProfileScreen")
+                }
+            )
+        }
+
+        // Навигация страницы ProfileScreen
+        composable ("ProfileScreen") {
+            ProfileScreen(
+                navigateToHome = {
+                    navController.navigate("HomeScreen")
+                },
+                navigateToSettings = {},
+                navigateToBookmarks = {},
+                navigateLogOut = {
+                    navController.navigate("AuthorizationScreen")
+                },
             )
         }
     }
