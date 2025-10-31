@@ -25,12 +25,13 @@ import kotlinx.coroutines.delay
 
 @Preview
 @Composable
-fun SplashScreen(
-    onSplashEnd: () -> Unit = {}
+fun LoadingScreen(
+    onLoadingEnd: (String) -> Unit = {},
+    searchQuery: String? = null,
 ) {
     LaunchedEffect(Unit) {
-        delay(2500)
-        onSplashEnd()
+        delay(3000)
+        onLoadingEnd(searchQuery ?: "")
     }
 
     Box(

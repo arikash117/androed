@@ -20,6 +20,7 @@ import com.example.ariandroid.presentation.screens.authorization.LogInScreen
 import com.example.ariandroid.presentation.screens.authorization.SignUp1Screen
 import com.example.ariandroid.presentation.screens.authorization.SignUp2Screen
 import com.example.ariandroid.presentation.screens.home.HomeScreen
+import com.example.ariandroid.presentation.screens.home.LoadingScreen
 import com.example.ariandroid.presentation.screens.home.SearchResultScreen
 import com.example.ariandroid.presentation.screens.home.SettingsScreen
 import com.example.ariandroid.presentation.viewmodel.ConnectionViewModel
@@ -33,7 +34,6 @@ fun NavGraph() {
 
     LaunchedEffect(hasInternet) {
         if (!hasInternet) {
-            // Если нет интернета, переходим на экран NoConnectionScreen
             if (navController.currentDestination?.route != "NoConnectionScreen") {
                 navController.navigate("NoConnectionScreen") {
                     // Очищаем бэкстек до сплэш-экрана
@@ -41,7 +41,6 @@ fun NavGraph() {
                 }
             }
         } else {
-            // Если интернет появился и мы на экране NoConnectionScreen, переходим на Authorization
             if (navController.currentDestination?.route == "NoConnectionScreen") {
                 navController.navigate("AuthorizationScreen") {
                     popUpTo("NoConnectionScreen") { inclusive = true }
@@ -174,8 +173,33 @@ fun NavGraph() {
                 },
                 navigateToBookmarks = {},
                 navigateToSearch = { query ->
-                    navController.navigate("SearchResultScreen/$query")
+                    navController.navigate("LoadingScreen/$query")
                 },
+            )
+        }
+
+        // Навигация страницы LoadingScreen
+        composable(
+            "LoadingScreen/{searchQuery}",
+            arguments = listOf(
+                navArgument("searchQuery") {
+                    type = NavType.StringType
+                    defaultValue = ""
+                    nullable = true
+                }
+            )
+        ) { backStackEntry ->
+            val searchQuery = backStackEntry.arguments?.getString("searchQuery")
+            LoadingScreen(
+                searchQuery = searchQuery,
+                onLoadingEnd = { query ->
+                    navController.navigate("SearchResultScreen/$query") {
+                        popUpTo("HomeScreen") {
+                            // Возвращаемся к HomeScreen вместо LoadingScreen
+                            saveState = true
+                        }
+                    }
+                }
             )
         }
 
