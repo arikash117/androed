@@ -21,6 +21,7 @@ import com.example.ariandroid.presentation.screens.authorization.SignUp1Screen
 import com.example.ariandroid.presentation.screens.authorization.SignUp2Screen
 import com.example.ariandroid.presentation.screens.home.HomeScreen
 import com.example.ariandroid.presentation.screens.home.LoadingScreen
+import com.example.ariandroid.presentation.screens.home.ProfileScreen
 import com.example.ariandroid.presentation.screens.home.SearchResultScreen
 import com.example.ariandroid.presentation.screens.home.SettingsScreen
 import com.example.ariandroid.presentation.viewmodel.ConnectionViewModel
@@ -236,6 +237,23 @@ fun NavGraph() {
                 navigateToSettings = {},
                 navigateToBookmarks = {},
                 navigateToNext = {},
+                navigateToProfile = {
+                    navController.navigate("ProfileScreen")
+                }
+            )
+        }
+
+        // Навигация страницы ProfileScreen
+        composable ("ProfileScreen") {
+            ProfileScreen(
+                navigateToHome = {
+                    navController.navigate("HomeScreen")
+                },
+                navigateToSettings = {},
+                navigateToBookmarks = {},
+                navigateLogOut = {
+                    navController.navigate("AuthorizationScreen")
+                },
             )
         }
     }

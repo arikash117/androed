@@ -2,6 +2,7 @@ package com.example.ariandroid.presentation.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,9 +42,10 @@ import com.example.ariandroid.ui.theme.BlackCurrant
 @Composable
 fun SettingsScreen(
     navigateToNext: () -> Unit,
-    navigateToHome: () -> Unit = {},
-    navigateToBookmarks: () -> Unit = {},
-    navigateToSettings: () -> Unit = {},
+    navigateToHome: () -> Unit,
+    navigateToBookmarks: () ->Unit,
+    navigateToSettings: () ->Unit,
+    navigateToProfile: () -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -102,7 +104,7 @@ fun SettingsScreen(
                         painter = painterResource(id = R.drawable.right_arrow),
                         contentDescription = "rignt arrow",
                         modifier = Modifier
-                            .size(24.dp)
+                            .size(24.dp).clickable { navigateToProfile() }
                     )
                 }
 
@@ -158,6 +160,7 @@ fun PreviewSettingsScreen() {
         navigateToHome = {},
         navigateToBookmarks = {},
         navigateToSettings = {},
-        navigateToNext = {}
+        navigateToNext = {},
+        navigateToProfile = {},
     )
 }
