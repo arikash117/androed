@@ -40,4 +40,7 @@
     <string name="retry">Повторить попытку</string>
     <string name="search_your_auto">Давайте найдем автомобиль</string>
     <string name="enter_car_brand">Введите марку автомобиля</string>
+    <string name="lets_ride">Поехали</string>
+    <string name="car_image_dsc">Car image</string>
+    <string name="logo_dsc">DriveNext Logo</string>
 </resources>

@@ -88,7 +88,7 @@ fun NavGraph() {
         // Навигация онбординг экрана
         composable("OnboardingScreen") {
             OnboardingScreen(
-                navigateToAutorization = {
+                navigateToAuthorization = {
                     connectionViewModel.checkConnection()
                     if (connectionViewModel.connectionState.value) {
                         navController.navigate("AuthorizationScreen") {

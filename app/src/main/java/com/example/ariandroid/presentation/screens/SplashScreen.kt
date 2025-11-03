@@ -76,7 +76,7 @@ fun SplashScreen(
             Spacer(modifier = Modifier.height(110.dp))
 
             Image(
-                painter = painterResource(id = R.drawable.icon),
+                painter = painterResource(id = R.drawable.logo),
                 contentDescription = "DriveNext Logo",
                 modifier = Modifier.size(350.dp)
             )

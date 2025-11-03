@@ -8,7 +8,7 @@ fun AriAndroidTheme(
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
-        typography = Typography,
+        typography = AppTypography,
         content = content
     )
 }
