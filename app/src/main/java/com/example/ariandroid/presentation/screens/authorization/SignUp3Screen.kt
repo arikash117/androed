@@ -35,7 +35,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import androidx.compose.material3.Surface
@@ -46,6 +45,7 @@ import com.example.ariandroid.R
 import com.example.ariandroid.presentation.domain.model.ImagePickerEvent
 import com.example.ariandroid.presentation.domain.model.SignUpValidationEvent
 import com.example.ariandroid.presentation.viewmodel.signup.SignUp3ViewModel
+import com.example.ariandroid.ui.components.AccountCreate
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
 import kotlinx.coroutines.delay
@@ -147,26 +147,7 @@ fun SignUp3Screen(
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                // Заголовок
-                Box (
-                    contentAlignment = Alignment.CenterStart,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                ) {
-                    Image (
-                        painter = painterResource(id = R.drawable.left_arrow),
-                        contentDescription = "Left arrow",
-                        modifier = Modifier.size(20.dp).clickable {navigateBack()},
-                    )
-
-                    Text (
-                        text = stringResource(R.string.create_account_title),
-                        style = MaterialTheme.typography.bodyLarge,
-                        fontSize = 24.sp,
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center
-                    )
-                }
+                AccountCreate(navigateBack = navigateBack)
 
                 Spacer(modifier = Modifier.height(32.dp))
 

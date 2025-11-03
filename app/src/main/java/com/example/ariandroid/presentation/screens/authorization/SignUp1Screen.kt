@@ -2,7 +2,6 @@ package com.example.ariandroid.presentation.screens.authorization
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,6 +36,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.ariandroid.R
 import com.example.ariandroid.presentation.domain.model.SignUpValidationEvent
 import com.example.ariandroid.presentation.viewmodel.signup.SignUp1ViewModel
+import com.example.ariandroid.ui.components.AccountCreate
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
 
@@ -84,25 +84,7 @@ fun SignUp1Screen(
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                Box(
-                    contentAlignment = Alignment.CenterStart,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.left_arrow),
-                        contentDescription = "Left arrow",
-                        modifier = Modifier.size(20.dp).clickable(onClick = {navigateBack()})
-                    )
-
-                    Text(
-                        text = stringResource(R.string.create_account_title),
-                        style = MaterialTheme.typography.bodyLarge,
-                        fontSize = 24.sp,
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center
-                    )
-                }
+                AccountCreate(navigateBack = navigateBack)
 
                 Spacer(modifier = Modifier.height(100.dp))
 
