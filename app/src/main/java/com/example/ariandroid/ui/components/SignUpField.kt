@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.ariandroid.R
 import com.example.ariandroid.ui.theme.AppTypography
@@ -24,7 +25,7 @@ fun SignUpField(
     text: String,
     value: String,
     onValueChange: (String) -> Unit,
-    error: String? = null,
+    error: Int? = null,
     trailingIcon: Boolean = true,
 ) {
     Column() {
@@ -57,8 +58,11 @@ fun SignUpField(
             },
             isError = error != null,
             supportingText = {
-                if (!error.isNullOrBlank()) {
-                    Text(text = error, color = Color.Red)
+                if (error != null) {
+                    Text(
+                        text = stringResource(id = error),
+                        style = AppTypography.titleSmall,
+                    )
                 }
             },
         )

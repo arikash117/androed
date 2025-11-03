@@ -142,14 +142,13 @@ fun SignUp1Screen(
 
                         Text(
                             text = stringResource(R.string.terms_agreement),
-                            style = AppTypography.titleMedium.copy(lineHeight = 14.sp),
-                            fontSize = 12.sp,
+                            style = AppTypography.labelSmall.copy(lineHeight = 14.sp),
                         )
                     }
-                    if (validationSignUpResult.termsError != null) {
+                    validationSignUpResult.termsError?.let { errorResId ->
                         Text(
-                            text = validationSignUpResult.termsError!!,
-                            color = Color.Red,
+                            text = stringResource(id = errorResId),
+                            style = AppTypography.titleSmall,
                         )
                     }
                 }

@@ -45,4 +45,10 @@
     <string name="logo_dsc">DriveNext Logo</string>
     <string name="left_arrow_dsc">Left arrow</string>
     <string name="visible_icon_dsc">Visible icon</string>
+    <string name="invalid_email_format">Неверный формат почты</string>
+    <string name="pass_lenght">Пароль должен содержать не менее 8 символов</string>
+    <string name="pass_has_num">Пароль должен содержать хотя бы одну цифру</string>
+    <string name="mismatch_passes">Пароли не совпадают</string>
+    <string name="accept_terms">Необходимо принять условия, чтобы продолжить</string>
+    <string name="empty_field" />
 </resources>

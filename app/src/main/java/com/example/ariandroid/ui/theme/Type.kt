@@ -29,6 +29,12 @@ val AppTypography = Typography(
         fontSize = 14.sp,
         color = Color.Black,
     ),
+    titleSmall = TextStyle(
+        fontFamily = Montserrat,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp,
+        color = Color.Red,
+    ),
     labelMedium = TextStyle(
         fontFamily = Montserrat,
         fontWeight = FontWeight.SemiBold,
@@ -37,9 +43,9 @@ val AppTypography = Typography(
     ),
     labelSmall = TextStyle(
         fontFamily = Montserrat,
-        fontWeight = FontWeight.Light,
+        fontWeight = FontWeight.Normal,
         fontSize = 12.sp,
-        color = Color.LightGray,
+        color = Color.Gray,
     ),
 )
 
