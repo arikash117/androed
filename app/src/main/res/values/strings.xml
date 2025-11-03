@@ -51,4 +51,18 @@
     <string name="mismatch_passes">Пароли не совпадают</string>
     <string name="accept_terms">Необходимо принять условия, чтобы продолжить</string>
     <string name="empty_field" />
+    <string name="date_invalid_format">Неверный формат даты. Используйте ДД.ММ.ГГГГ</string>
+    <string name="choose_sex">Выберите пол</string>
+    <string name="surname_title_field">Фамилия</string>
+    <string name="enter_surname">Введите фамилию</string>
+    <string name="name_title_field">Имя</string>
+    <string name="enter_name">Введите имя</string>
+    <string name="last_name_title_field">Отчество</string>
+    <string name="enter_last_name">Введите отчество</string>
+    <string name="birth_date_title_field">Дата рождения</string>
+    <string name="sex">Пол</string>
+    <string name="male">Мужской</string>
+    <string name="female">Женский</string>
+    <string name="driver_id_lenght">Номер водительского удостоверения должен состоять из 10 цифр</string>
+    <string name="driver_id_has_num">Номер водительского удостоверения содержит только цифры</string>
 </resources>

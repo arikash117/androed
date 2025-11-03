@@ -73,7 +73,7 @@ class SignUp1ViewModel @Inject constructor() : ViewModel(){
         return validationSignUpResult.value.isSuccess
     }
 
-    fun signup(navigateToSignUp2: () -> Unit) {
+    fun signup(navigateToNext: () -> Unit) {
         viewModelScope.launch {
             if (validateData()) {
                 try {

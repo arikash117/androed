@@ -42,7 +42,7 @@ import com.example.ariandroid.ui.theme.BlackCurrant
 
 @Composable
 fun SignUp1Screen(
-    navigateToSignUp2: () -> Unit,
+    navigateToNext: () -> Unit,
     navigateBack: () -> Unit,
     viewModel: SignUp1ViewModel = hiltViewModel()
 ) {
@@ -53,7 +53,7 @@ fun SignUp1Screen(
     LaunchedEffect(signUpValidationEvent) {
         when (signUpValidationEvent) {
             is SignUpValidationEvent.Success -> {
-                navigateToSignUp2()
+                navigateToNext()
                 viewModel.clearValidationEvent()
             }
             is SignUpValidationEvent.Error -> {
@@ -157,7 +157,7 @@ fun SignUp1Screen(
             Spacer(modifier = Modifier.weight(1f))
 
             TextButton(
-                onClick = { viewModel.signup(navigateToSignUp2) },
+                onClick = { viewModel.signup(navigateToNext) },
                 modifier = Modifier
                     .size(width = 350.dp, height = 50.dp)
                     .background(
@@ -179,7 +179,7 @@ fun SignUp1Screen(
 @Composable
 fun SignUp1ScreenPreview () {
     SignUp1Screen(
-        navigateToSignUp2 = {},
+        navigateToNext = {},
         navigateBack = {},
     )
 }

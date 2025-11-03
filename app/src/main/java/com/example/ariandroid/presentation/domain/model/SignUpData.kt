@@ -30,16 +30,14 @@ data class ValidationSignUpResult(
     val confirmPasswordError: Int? = null,
     val termsError: Int? = null,
 
-    val surnameError: String? = null,
-    val nameError: String? = null,
-    val lastNameError: String? = null,
-    val birthDateError: String? = null,
-    val sexError: String? = null,
+    val surnameError: Int? = null,
+    val nameError: Int? = null,
+    val lastNameError: Int? = null,
+    val birthDateError: Int? = null,
+    val sexError: Int? = null,
 
-    val driverIDError: String? = null,
-    val driverIDIssueDateError: String? = null,
-//    val uploadDriverIDError: String? = null,
-//    val uploadPassportError: String? = null,
+    val driverIDError: Int? = null,
+    val driverIDIssueDateError: Int? = null,
 )
 
 sealed class SignUpValidationEvent {
