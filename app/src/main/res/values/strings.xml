@@ -44,4 +44,5 @@
     <string name="car_image_dsc">Car image</string>
     <string name="logo_dsc">DriveNext Logo</string>
     <string name="left_arrow_dsc">Left arrow</string>
+    <string name="visible_icon_dsc">Visible icon</string>
 </resources>

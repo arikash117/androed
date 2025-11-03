@@ -60,7 +60,7 @@ fun AuthorizationScreen(
 
             Text(
                 text = stringResource(R.string.title_description),
-                style = AppTypography.bodyMedium,
+                style = AppTypography.titleMedium,
                 textAlign = TextAlign.Start,
                 modifier = Modifier.fillMaxWidth(),
             )

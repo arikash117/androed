@@ -74,7 +74,7 @@ fun NoConnectionScreen(
 
                     Text(
                         text = stringResource(R.string.retry_connection),
-                        style = AppTypography.bodyMedium,
+                        style = AppTypography.titleMedium,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth(),
                         lineHeight = 20.sp

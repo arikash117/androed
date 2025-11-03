@@ -1,6 +1,5 @@
 package com.example.ariandroid.presentation.screens.authorization
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,8 +14,7 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -26,7 +24,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,6 +34,8 @@ import com.example.ariandroid.R
 import com.example.ariandroid.presentation.domain.model.SignUpValidationEvent
 import com.example.ariandroid.presentation.viewmodel.signup.SignUp1ViewModel
 import com.example.ariandroid.ui.components.AccountCreate
+import com.example.ariandroid.ui.components.SignUpField
+import com.example.ariandroid.ui.theme.AppTypography
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
 
@@ -78,7 +77,6 @@ fun SignUp1Screen(
                 .padding(top = 16.dp, bottom = 32.dp)
                 .systemBarsPadding()
         ) {
-            //Заголовок + форма
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
@@ -92,107 +90,36 @@ fun SignUp1Screen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    // Почта
-                    Column {
-                        Text(
-                            text = stringResource(R.string.email_title_field)
-                        )
-
-                        Spacer(modifier = Modifier.height(4.dp))
-
-                        OutlinedTextField(
-                            value = signupData.email,
-                            onValueChange = viewModel::onEmailChange,
-                            placeholder = {
-                                Text(
-                                    stringResource(R.string.enter_email),
-                                    color = Color.Gray,
-                                    modifier = Modifier.fillMaxWidth()
-                                )
-                            },
-                            shape = RoundedCornerShape(14.dp),
-                            modifier = Modifier.fillMaxWidth(),
-                            singleLine = true,
-                            isError = validationSignUpResult.emailError != null,
-                            supportingText = {
-                                if (validationSignUpResult.emailError != null) {
-                                    Text(
-                                        text = validationSignUpResult.emailError!!,
-                                        color = Color.Red,
-                                    )
-                                }
-                            },
-                        )
-                    }
+                    SignUpField(
+                        titleText = stringResource(R.string.email_title_field),
+                        text =stringResource(R.string.enter_email),
+                        value = signupData.email,
+                        onValueChange = viewModel::onEmailChange,
+                        error = validationSignUpResult.emailError,
+                        trailingIcon = false,
+                    )
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Придумайте пароль
-                    Column {
-                        Text(
-                            text = stringResource(R.string.password_field_title)
-                        )
-                        Spacer(modifier = Modifier.height(4.dp))
-
-                        OutlinedTextField(
-                            value = signupData.password,
-                            onValueChange = viewModel::onPasswordChange,
-                            placeholder = { Text(stringResource(R.string.enter_password), color = Color.Gray) },
-                            modifier = Modifier.fillMaxWidth(),
-                            shape = RoundedCornerShape(14.dp),
-                            trailingIcon = {
-                                Image(
-                                    painter = painterResource(id = R.drawable.visible),
-                                    contentDescription = "Visible icon",
-                                    modifier = Modifier.size(15.dp)
-                                )
-                            },
-                            isError = validationSignUpResult.passwordError != null,
-                            supportingText = {
-                                if (validationSignUpResult.passwordError != null) {
-                                    Text(
-                                        text = validationSignUpResult.passwordError!!,
-                                        color = Color.Red,
-                                    )
-                                }
-                            },
-                        )
-
-                    }
+                    SignUpField(
+                        titleText = stringResource(R.string.password_field_title),
+                        text = stringResource(R.string.enter_password),
+                        value = signupData.password,
+                        onValueChange = viewModel::onPasswordChange,
+                        error = validationSignUpResult.passwordError,
+                        trailingIcon = true,
+                    )
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Повторите пароль
-                    Column {
-                        Text(
-                            text = stringResource(R.string.repeat_password_field_title)
-                        )
-                        Spacer(modifier = Modifier.height(4.dp))
-
-                        OutlinedTextField(
-                            value = signupData.confirmPassword,
-                            onValueChange = viewModel::onConfirmPasswordChange,
-                            placeholder = { Text(stringResource(R.string.enter_password), color = Color.Gray) },
-                            modifier = Modifier.fillMaxWidth(),
-                            shape = RoundedCornerShape(14.dp),
-                            trailingIcon = {
-                                Image(
-                                    painter = painterResource(id = R.drawable.visible),
-                                    contentDescription = "Visible icon",
-                                    modifier = Modifier.size(15.dp)
-                                )
-                            },
-                            isError = validationSignUpResult.confirmPasswordError != null,
-                            supportingText = {
-                                if (validationSignUpResult.confirmPasswordError != null) {
-                                    Text(
-                                        text = validationSignUpResult.confirmPasswordError!!,
-                                        color = Color.Red,
-                                    )
-                                }
-                            },
-                        )
-                    }
+                    SignUpField(
+                        titleText = stringResource(R.string.repeat_password_field_title),
+                        text = stringResource(R.string.enter_password),
+                        value = signupData.confirmPassword,
+                        onValueChange = viewModel::onConfirmPasswordChange,
+                        error = validationSignUpResult.confirmPasswordError,
+                        trailingIcon = true,
+                    )
 
                     Spacer(modifier = Modifier.height(32.dp))
 
@@ -204,13 +131,18 @@ fun SignUp1Screen(
                             checked = signupData.acceptTerms,
                             onCheckedChange = viewModel::onAcceptTermsChange,
                             modifier = Modifier.size(20.dp),
+                            colors = CheckboxDefaults.colors(
+                                checkedColor = Color.LightGray,
+                                uncheckedColor = Color.LightGray,
+                                checkmarkColor = BlackCurrant,
+                            )
                         )
 
                         Spacer(modifier = Modifier.width(10.dp))
 
                         Text(
                             text = stringResource(R.string.terms_agreement),
-                            style = MaterialTheme.typography.bodyLarge.copy(lineHeight = 14.sp),
+                            style = AppTypography.titleMedium.copy(lineHeight = 14.sp),
                             fontSize = 12.sp,
                         )
                     }
@@ -235,8 +167,7 @@ fun SignUp1Screen(
             ) {
                 Text(
                     text = stringResource(R.string.next),
-                    color = Color(0xFFFFFFFF),
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = AppTypography.labelMedium,
                     textAlign = TextAlign.Center,
                 )
             }

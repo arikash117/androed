@@ -126,7 +126,7 @@ fun OnboardingScreen(
 
                 Text(
                     text = pages[currentPage].currentDescription,
-                    style = AppTypography.bodyMedium,
+                    style = AppTypography.titleMedium,
                 )
             }
 
