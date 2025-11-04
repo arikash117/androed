@@ -2,6 +2,7 @@ package com.example.ariandroid.ui.theme
 
 import com.example.ariandroid.R
 import androidx.compose.material3.Typography
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -15,30 +16,38 @@ val Montserrat = FontFamily(
     Font(R.font.montserrat_semibold, FontWeight.SemiBold),
     Font(R.font.montserrat_bold, FontWeight.Bold)
 )
-// Set of Material typography styles to start with
-val Typography = Typography(
-    bodyLarge = TextStyle(
+val AppTypography = Typography(
+    titleLarge = TextStyle(
+        fontFamily = Montserrat,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 24.sp,
+        color = Color.Black,
+    ),
+    titleMedium = TextStyle(
         fontFamily = Montserrat,
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
-    /* Other default text styles to override
-    titleLarge = TextStyle(
-        fontFamily = FontFamily.Default,
+        color = Color.Black,
+    ),
+    // for warnings
+    titleSmall = TextStyle(
+        fontFamily = Montserrat,
         fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
+        fontSize = 12.sp,
+        color = Color.Red,
+    ),
+    // for buttons
+    labelMedium = TextStyle(
+        fontFamily = Montserrat,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 14.sp,
+        color = Color.White,
     ),
     labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
-    )
-    */
+        fontFamily = Montserrat,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp,
+        color = Color.Gray,
+    ),
 )
 

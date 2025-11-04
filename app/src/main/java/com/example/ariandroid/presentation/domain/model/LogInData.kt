@@ -7,8 +7,8 @@ data class LogInData (
 
 data class ValidationResult(
     val isSuccess: Boolean = false,
-    val emailError: String? = null,
-    val passError: String? = null,
+    val emailError: Int? = null,
+    val passError: Int? = null,
 )
 
 sealed class LogInValidationEvent {

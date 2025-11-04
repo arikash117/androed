@@ -9,16 +9,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -32,12 +29,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.ariandroid.R
+import com.example.ariandroid.ui.theme.AppTypography
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
 import kotlin.Int
@@ -51,8 +47,8 @@ data class OnboardingPage(
 
 
 @Composable
-fun OnboardingScreen (
-    navigateToAutorization: () -> Unit,
+fun OnboardingScreen(
+    navigateToAuthorization: () -> Unit,
 ) {
 
     val pages = listOf(
@@ -74,112 +70,106 @@ fun OnboardingScreen (
     )
     var currentPage by remember { mutableIntStateOf(0) }
 
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Background),
-        contentAlignment = Alignment.Center
+            .background(Background)
+            .padding(vertical = 20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
+            horizontalAlignment = Alignment.End,
+        ) {
+            Text(
+                text = stringResource(R.string.skip),
+                style = AppTypography.labelMedium.copy(
+                    color = BlackCurrant,
+                ),
+                modifier = Modifier
+                    .clickable { navigateToAuthorization() },
+                textAlign = TextAlign.End
+            )
+        }
+
+        Spacer(modifier = Modifier.height(52.dp))
 
         Image(
             painter = painterResource(id = pages[currentPage].currentImage),
-            contentDescription = "Car image",
+            contentDescription = stringResource(R.string.car_image_dsc),
             modifier = Modifier
-                .fillMaxSize(),
-
-            )
+                .size(500.dp),
+        )
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight()
-                .padding(horizontal = 24.dp)
-                .padding(top = 16.dp, bottom = 32.dp)
-                .systemBarsPadding()
+                .padding(horizontal = 20.dp)
+
         ) {
-            //Пропустить
+            // Текст
             Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.End
-            ) {
-                Text(
-                    text = stringResource(R.string.skip),
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier
-                        .clickable { navigateToAutorization() },
-                    textAlign = TextAlign.End
-                )
-            }
-
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
+                horizontalAlignment = Alignment.Start,
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 26.dp)
-                ) {
-                    Text(
-                        text = pages[currentPage].currentTitle,
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold,
-                    )
+                Text(
+                    text = pages[currentPage].currentTitle,
+                    style = AppTypography.titleLarge,
+                )
 
-                    Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
-                    Text(
-                        text = pages[currentPage].currentDescription,
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(64.dp))
-
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-
-                    OnboardingProgressIndicator(totalPages = pages.size, currentPage = currentPage)
-
-                    Spacer(modifier = Modifier.weight(1f))
-
-                    TextButton(
-                        onClick = {
-                            if (currentPage == pages.lastIndex) {
-                                navigateToAutorization()
-                            } else {
-                                currentPage++
-                            }
-                        },
-                        modifier = Modifier
-                            .height(50.dp)
-                            .background(
-                                color = BlackCurrant, shape = RoundedCornerShape(14.dp)
-                            ),
-                        contentPadding = PaddingValues(horizontal = 40.dp, vertical = 14.dp)
-                    ) {
-                        Text(
-                            text = if (currentPage == pages.lastIndex) "Поехали" else "Далее",
-                            color = Color(0xFFFFFFFF),
-                            style = MaterialTheme.typography.bodyLarge,
-                            textAlign = TextAlign.Center,
-                        )
-                    }
-                }
+                Text(
+                    text = pages[currentPage].currentDescription,
+                    style = AppTypography.titleMedium,
+                )
             }
 
-        }
+            Spacer(modifier = Modifier.height(64.dp))
 
+            // Индекатор страниц + кнопка
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+
+                OnboardingProgressIndicator(totalPages = pages.size, currentPage = currentPage)
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                TextButton(
+                    onClick = {
+                        if (currentPage == pages.lastIndex) {
+                            navigateToAuthorization()
+                        } else {
+                            currentPage++
+                        }
+                    },
+                    modifier = Modifier
+                        .height(50.dp)
+                        .background(
+                            color = BlackCurrant, shape = RoundedCornerShape(14.dp)
+                        ),
+                    contentPadding = PaddingValues(horizontal = 40.dp, vertical = 14.dp)
+                ) {
+                    Text(
+                        text = if (currentPage == pages.lastIndex) stringResource(R.string.lets_ride) else stringResource(
+                            R.string.next
+                        ),
+                        style = AppTypography.labelMedium,
+                        textAlign = TextAlign.Center,
+                    )
+                }
+            }
+        }
     }
 }
 
-// индекатор страниц
+// Индекатор страниц
 @Composable
 fun OnboardingProgressIndicator(
     totalPages: Int,
@@ -190,15 +180,13 @@ fun OnboardingProgressIndicator(
         verticalAlignment = Alignment.CenterVertically
     ) {
         repeat(totalPages) { index ->
-
             Box(
                 modifier = Modifier
                     .padding(horizontal = 4.dp)
                     .size(12.dp)
                     .clip(CircleShape)
                     .background(
-                        if (index == currentPage) BlackCurrant else Color.LightGray
-                    )
+                        if (index == currentPage) BlackCurrant else Color.LightGray),
             )
         }
     }
@@ -208,6 +196,6 @@ fun OnboardingProgressIndicator(
 @Composable
 fun OnboardingScreenPreview() {
     OnboardingScreen(
-        navigateToAutorization = {}
+        navigateToAuthorization = {}
     )
 }

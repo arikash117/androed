@@ -2,6 +2,7 @@ package com.example.ariandroid.presentation.viewmodel.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.ariandroid.R
 import com.example.ariandroid.presentation.domain.model.SignUpData
 import com.example.ariandroid.presentation.domain.model.SignUpValidationEvent
 import com.example.ariandroid.presentation.domain.model.ValidationSignUpResult
@@ -43,22 +44,22 @@ class SignUp1ViewModel @Inject constructor() : ViewModel(){
         val data = _signupData.value
 
         val emailError = when {
-            data.email.isBlank() -> ""
-            !isValidEmail(data.email) -> "Неверный формат почты"
+            data.email.isBlank() -> R.string.empty_field
+            !isValidEmail(data.email) -> R.string.invalid_email_format
             else -> null
         }
         val passwordError = when {
-            data.password.isBlank() -> ""
-            data.password.length < 8 -> "Пароль должен содержать не менее 8 символов"
-            !data.password.any { it.isDigit() } -> "Пароль должен содержать хотя бы одну цифру"
+            data.password.isBlank() -> R.string.empty_field
+            data.password.length < 8 -> R.string.pass_lenght
+            !data.password.any { it.isDigit() } -> R.string.pass_has_num
             else -> null
         }
         val confirmPasswordError = when {
-            data.confirmPassword.isBlank() -> ""
-            data.password != data.confirmPassword -> "Пароли не совпадают"
+            data.confirmPassword.isBlank() -> R.string.empty_field
+            data.password != data.confirmPassword -> R.string.mismatch_passes
             else -> null
         }
-        val termsError = if (!data.acceptTerms) "Необходимо принять условия, чтобы продолжить" else null
+        val termsError = if (!data.acceptTerms) R.string.accept_terms else null
 
         _validationSignUpResult.value = ValidationSignUpResult(
             emailError = emailError,
@@ -72,7 +73,7 @@ class SignUp1ViewModel @Inject constructor() : ViewModel(){
         return validationSignUpResult.value.isSuccess
     }
 
-    fun signup(navigateToSignUp2: () -> Unit) {
+    fun signup(navigateToNext: () -> Unit) {
         viewModelScope.launch {
             if (validateData()) {
                 try {

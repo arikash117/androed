@@ -88,7 +88,7 @@ fun NavGraph() {
         // Навигация онбординг экрана
         composable("OnboardingScreen") {
             OnboardingScreen(
-                navigateToAutorization = {
+                navigateToAuthorization = {
                     connectionViewModel.checkConnection()
                     if (connectionViewModel.connectionState.value) {
                         navController.navigate("AuthorizationScreen") {
@@ -114,7 +114,7 @@ fun NavGraph() {
         // Навигация страницы 1 регистрации
         composable ("SignUp1Screen") {
             SignUp1Screen(
-                navigateToSignUp2 = {
+                navigateToNext = {
                     navController.navigate("SignUp2Screen")
                 },
                 navigateBack = {
@@ -126,7 +126,7 @@ fun NavGraph() {
         // Навигация страницы 2 регистрации
         composable ("SignUp2Screen") {
             SignUp2Screen(
-                navigateToSignUp3 = {
+                navigateToNext = {
                     navController.navigate("SignUp3Screen")
                 },
                 navigateBack = {
@@ -151,7 +151,7 @@ fun NavGraph() {
         composable ("Congratulations") {
             Congratulations(
                 toNextScreen = {
-                    navController.navigate("AuthorizationScreen")
+                    navController.navigate("HomeScreen")
                 }
             )
         }

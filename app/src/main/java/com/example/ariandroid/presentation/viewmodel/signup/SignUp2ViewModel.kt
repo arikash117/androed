@@ -2,6 +2,7 @@ package com.example.ariandroid.presentation.viewmodel.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.ariandroid.R
 import com.example.ariandroid.presentation.domain.model.SignUpData
 import com.example.ariandroid.presentation.domain.model.SignUpValidationEvent
 import com.example.ariandroid.presentation.domain.model.ValidationSignUpResult
@@ -50,23 +51,22 @@ class SignUp2ViewModel @Inject constructor() : ViewModel() {
         val data = _signupData.value
 
         val surnameError = when {
-            data.surname.isBlank() -> ""
+            data.surname.isBlank() -> R.string.empty_field
+            !data.surname.all { it.isLetter() } -> R.string.field_has_only_letters
             else -> null
         }
         val nameError = when {
-            data.name.isBlank() -> ""
+            data.name.isBlank() -> R.string.empty_field
+            !data.surname.all { it.isLetter() } -> R.string.field_has_only_letters
             else -> null
         }
         val lastNameError = when {
-            data.lastName.isBlank() -> ""
+            data.lastName.isBlank() -> R.string.empty_field
+            !data.surname.all { it.isLetter() } -> R.string.field_has_only_letters
             else -> null
         }
-        val birthDateError = when {
-            data.birthDate.isBlank() -> ""
-            !isValidBirthDate(data.birthDate) -> "Неверный формат даты. Используйте ДД.ММ.ГГГГ"
-            else -> null
-        }
-        val sexError = if (data.sex == null) "Выберите пол" else null
+        val birthDateError = isValidBirthDate(data.birthDate)
+        val sexError = if (data.sex == null) R.string.choose_sex else null
 
         _validationSignUpResult.value = ValidationSignUpResult(
             surnameError = surnameError,
@@ -80,7 +80,7 @@ class SignUp2ViewModel @Inject constructor() : ViewModel() {
         return validationSignUpResult.value.isSuccess
     }
 
-    fun signup(navigateToSignUp2: () -> Unit) {
+    fun signup(navigateToNext: () -> Unit) {
         viewModelScope.launch {
             if (validateData()) {
                 try {
@@ -92,20 +92,21 @@ class SignUp2ViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    private fun isValidBirthDate(birthDate: String): Boolean {
+    private fun isValidBirthDate(dateString: String): Int? {
+        if (dateString.isBlank()) {
+            return R.string.empty_field
+        }
         return try {
             val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-            val date = LocalDate.parse(birthDate, formatter)
+            val date = LocalDate.parse(dateString, formatter)
 
-            if (date.isAfter(LocalDate.now())) {
-                false // дата в будущем — недопустима
-            } else if (date.year < 1900) {
-                false // слишком старая дата
-            } else {
-                true
+            when {
+                date.isAfter(LocalDate.now()) -> R.string.date_in_future
+                date.year < 1900 -> R.string.date_is_too_old
+                else -> null
             }
         } catch (e: DateTimeParseException) {
-            false
+            R.string.date_invalid_format
         }
     }
 
