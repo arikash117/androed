@@ -52,21 +52,20 @@ class SignUp2ViewModel @Inject constructor() : ViewModel() {
 
         val surnameError = when {
             data.surname.isBlank() -> R.string.empty_field
+            !data.surname.all { it.isLetter() } -> R.string.field_has_only_letters
             else -> null
         }
         val nameError = when {
             data.name.isBlank() -> R.string.empty_field
+            !data.surname.all { it.isLetter() } -> R.string.field_has_only_letters
             else -> null
         }
         val lastNameError = when {
             data.lastName.isBlank() -> R.string.empty_field
+            !data.surname.all { it.isLetter() } -> R.string.field_has_only_letters
             else -> null
         }
-        val birthDateError = when {
-            data.birthDate.isBlank() -> R.string.empty_field
-            !isValidBirthDate(data.birthDate) -> R.string.date_invalid_format
-            else -> null
-        }
+        val birthDateError = isValidBirthDate(data.birthDate)
         val sexError = if (data.sex == null) R.string.choose_sex else null
 
         _validationSignUpResult.value = ValidationSignUpResult(
@@ -93,20 +92,21 @@ class SignUp2ViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    private fun isValidBirthDate(birthDate: String): Boolean {
+    private fun isValidBirthDate(dateString: String): Int? {
+        if (dateString.isBlank()) {
+            return R.string.empty_field
+        }
         return try {
             val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-            val date = LocalDate.parse(birthDate, formatter)
+            val date = LocalDate.parse(dateString, formatter)
 
-            if (date.isAfter(LocalDate.now())) {
-                false
-            } else if (date.year < 1900) {
-                false
-            } else {
-                true
+            when {
+                date.isAfter(LocalDate.now()) -> R.string.date_in_future
+                date.year < 1900 -> R.string.date_is_too_old
+                else -> null
             }
         } catch (e: DateTimeParseException) {
-            false
+            R.string.date_invalid_format
         }
     }
 

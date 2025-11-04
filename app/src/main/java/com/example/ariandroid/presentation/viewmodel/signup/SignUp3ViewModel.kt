@@ -54,15 +54,11 @@ class SignUp3ViewModel @Inject constructor() : ViewModel() {
 
         val driverIDError = when {
             data.driverID.isBlank() -> R.string.empty_field
-            data.driverID.length == 10 -> R.string.driver_id_lenght
+            data.driverID.length != 10 -> R.string.driver_id_lenght
             !data.driverID.all { it.isDigit() } -> R.string.driver_id_has_num
             else -> null
         }
-        val driverIDIssueDateError = when {
-            data.driverIDIssueDate.isBlank() -> R.string.empty_field
-            !isValidateIDIssueDate(data.driverIDIssueDate) -> R.string.date_invalid_format
-            else -> null
-        }
+        val driverIDIssueDateError = validateIDIssueDate(data.driverIDIssueDate)
 
         _validationSignUpResult.value = ValidationSignUpResult(
             driverIDError = driverIDError,
@@ -84,20 +80,22 @@ class SignUp3ViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    private fun isValidateIDIssueDate(driverIDIssueDate: String): Boolean {
+    private fun validateIDIssueDate(dateString: String): Int? {
+        if (dateString.isBlank()) {
+            return R.string.empty_field
+        }
+
         return try {
             val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-            val date = LocalDate.parse(driverIDIssueDate, formatter)
+            val date = LocalDate.parse(dateString, formatter)
 
-            if (date.isAfter(LocalDate.now())) {
-                false
-            } else if (date.year < 1900) {
-                false
-            } else {
-                true
+            when {
+                date.isAfter(LocalDate.now()) -> R.string.date_in_future
+                date.year < 1900 -> R.string.date_is_too_old
+                else -> null
             }
         } catch (e: DateTimeParseException) {
-            false
+            R.string.date_invalid_format
         }
     }
 

@@ -50,7 +50,7 @@
     <string name="pass_has_num">Пароль должен содержать хотя бы одну цифру</string>
     <string name="mismatch_passes">Пароли не совпадают</string>
     <string name="accept_terms">Необходимо принять условия, чтобы продолжить</string>
-    <string name="empty_field" />
+    <string name="empty_field">Поле не может быть пустым</string>
     <string name="date_invalid_format">Неверный формат даты. Используйте ДД.ММ.ГГГГ</string>
     <string name="choose_sex">Выберите пол</string>
     <string name="surname_title_field">Фамилия</string>
@@ -65,4 +65,7 @@
     <string name="female">Женский</string>
     <string name="driver_id_lenght">Номер водительского удостоверения должен состоять из 10 цифр</string>
     <string name="driver_id_has_num">Номер водительского удостоверения содержит только цифры</string>
+    <string name="date_in_future">Дата еще не наступила</string>
+    <string name="date_is_too_old">Дата была слишком давно</string>
+    <string name="field_has_only_letters">Поле может содержать только буквы</string>
 </resources>
