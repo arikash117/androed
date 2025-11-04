@@ -151,7 +151,7 @@ fun NavGraph() {
         composable ("Congratulations") {
             Congratulations(
                 toNextScreen = {
-                    navController.navigate("AuthorizationScreen")
+                    navController.navigate("HomeScreen")
                 }
             )
         }
