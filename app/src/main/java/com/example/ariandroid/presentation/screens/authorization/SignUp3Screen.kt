@@ -44,7 +44,7 @@ import com.example.ariandroid.presentation.domain.model.ImagePickerEvent
 import com.example.ariandroid.presentation.domain.model.SignUpValidationEvent
 import com.example.ariandroid.presentation.viewmodel.signup.SignUp3ViewModel
 import com.example.ariandroid.ui.components.AccountCreate
-import com.example.ariandroid.ui.components.SignUpField
+import com.example.ariandroid.ui.components.AuthField
 import com.example.ariandroid.ui.theme.AppTypography
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
@@ -211,7 +211,7 @@ fun SignUp3Screen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        SignUpField(
+                        AuthField(
                             titleText = stringResource(R.string.driver_id_field_title),
                             text = stringResource(R.string.driver_id),
                             value = signupData.driverID,
@@ -222,7 +222,7 @@ fun SignUp3Screen(
 
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        SignUpField(
+                        AuthField(
                             titleText = stringResource(R.string.issue_date),
                             text = stringResource(R.string.dd_mm_yyyy),
                             value = signupData.driverIDIssueDate,

@@ -19,7 +19,7 @@ import com.example.ariandroid.R
 import com.example.ariandroid.ui.theme.AppTypography
 
 @Composable
-fun SignUpField(
+fun AuthField(
     modifier: Modifier = Modifier,
     titleText: String,
     text: String,

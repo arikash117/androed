@@ -34,7 +34,7 @@ import com.example.ariandroid.R
 import com.example.ariandroid.presentation.domain.model.SignUpValidationEvent
 import com.example.ariandroid.presentation.viewmodel.signup.SignUp1ViewModel
 import com.example.ariandroid.ui.components.AccountCreate
-import com.example.ariandroid.ui.components.SignUpField
+import com.example.ariandroid.ui.components.AuthField
 import com.example.ariandroid.ui.theme.AppTypography
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
@@ -90,7 +90,7 @@ fun SignUp1Screen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    SignUpField(
+                    AuthField(
                         titleText = stringResource(R.string.email_title_field),
                         text =stringResource(R.string.enter_email),
                         value = signupData.email,
@@ -101,7 +101,7 @@ fun SignUp1Screen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    SignUpField(
+                    AuthField(
                         titleText = stringResource(R.string.password_field_title),
                         text = stringResource(R.string.enter_password),
                         value = signupData.password,
@@ -112,7 +112,7 @@ fun SignUp1Screen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    SignUpField(
+                    AuthField(
                         titleText = stringResource(R.string.repeat_password_field_title),
                         text = stringResource(R.string.enter_password),
                         value = signupData.confirmPassword,

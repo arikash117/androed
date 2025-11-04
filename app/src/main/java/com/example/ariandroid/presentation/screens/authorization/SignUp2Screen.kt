@@ -33,7 +33,7 @@ import com.example.ariandroid.R
 import com.example.ariandroid.presentation.domain.model.SignUpValidationEvent
 import com.example.ariandroid.presentation.viewmodel.signup.SignUp2ViewModel
 import com.example.ariandroid.ui.components.AccountCreate
-import com.example.ariandroid.ui.components.SignUpField
+import com.example.ariandroid.ui.components.AuthField
 import com.example.ariandroid.ui.theme.AppTypography
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
@@ -88,7 +88,7 @@ fun SignUp2Screen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    SignUpField(
+                    AuthField(
                         titleText = stringResource(R.string.surname_title_field),
                         text = stringResource(R.string.enter_surname),
                         value = signupData.surname,
@@ -99,7 +99,7 @@ fun SignUp2Screen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    SignUpField(
+                    AuthField(
                         titleText = stringResource(R.string.name_title_field),
                         text = stringResource(R.string.enter_name),
                         value = signupData.name,
@@ -110,7 +110,7 @@ fun SignUp2Screen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    SignUpField(
+                    AuthField(
                         titleText = stringResource(R.string.last_name_title_field),
                         text = stringResource(R.string.enter_last_name),
                         value = signupData.lastName,
@@ -121,7 +121,7 @@ fun SignUp2Screen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    SignUpField(
+                    AuthField(
                         titleText = stringResource(R.string.birth_date_title_field),
                         text = stringResource(R.string.dd_mm_yyyy),
                         value = signupData.birthDate,
