@@ -37,6 +37,7 @@ import com.example.ariandroid.R
 import com.example.ariandroid.presentation.domain.model.LogInValidationEvent
 import com.example.ariandroid.presentation.viewmodel.LogInViewModel
 import com.example.ariandroid.ui.components.AuthField
+import com.example.ariandroid.ui.components.PassField
 import com.example.ariandroid.ui.theme.AppTypography
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
@@ -112,18 +113,16 @@ fun LogInScreen(
                         value = logInData.email,
                         onValueChange = viewModel::onEmailChange,
                         error = validationResult.emailError,
-                        trailingIcon = false,
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    AuthField(
+                    PassField(
                         titleText = stringResource(R.string.password_sign_in),
                         text = stringResource(R.string.enter_password),
                         value = logInData.password,
                         onValueChange = viewModel::onPasswordChange,
                         error = validationResult.passError,
-                        trailingIcon = true,
                     )
 
                     Spacer(modifier = Modifier.height(24.dp))

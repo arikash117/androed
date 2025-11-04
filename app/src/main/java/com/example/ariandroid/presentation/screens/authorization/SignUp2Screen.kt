@@ -94,7 +94,6 @@ fun SignUp2Screen(
                         value = signupData.surname,
                         onValueChange = viewModel::onSurnameChange,
                         error = validationSignUpResult.surnameError,
-                        trailingIcon = false,
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -105,7 +104,6 @@ fun SignUp2Screen(
                         value = signupData.name,
                         onValueChange = viewModel::onNameChange,
                         error = validationSignUpResult.nameError,
-                        trailingIcon = false,
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -116,7 +114,6 @@ fun SignUp2Screen(
                         value = signupData.lastName,
                         onValueChange = viewModel::onLastNameChange,
                         error = validationSignUpResult.lastNameError,
-                        trailingIcon = false,
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -127,7 +124,6 @@ fun SignUp2Screen(
                         value = signupData.birthDate,
                         onValueChange = viewModel::onBirthDateChange,
                         error = validationSignUpResult.birthDateError,
-                        trailingIcon = false,
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))

@@ -217,7 +217,6 @@ fun SignUp3Screen(
                             value = signupData.driverID,
                             onValueChange = viewModel::onDriverIDChange,
                             error = validationSignUpResult.driverIDError,
-                            trailingIcon = false,
                         )
 
                         Spacer(modifier = Modifier.height(16.dp))
@@ -228,7 +227,6 @@ fun SignUp3Screen(
                             value = signupData.driverIDIssueDate,
                             onValueChange = viewModel::onIDIssueDateChange,
                             error = validationSignUpResult.driverIDIssueDateError,
-                            trailingIcon = false,
                         )
 
                         Spacer(modifier = Modifier.height(16.dp))

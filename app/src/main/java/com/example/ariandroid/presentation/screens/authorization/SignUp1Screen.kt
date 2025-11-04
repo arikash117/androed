@@ -35,6 +35,7 @@ import com.example.ariandroid.presentation.domain.model.SignUpValidationEvent
 import com.example.ariandroid.presentation.viewmodel.signup.SignUp1ViewModel
 import com.example.ariandroid.ui.components.AccountCreate
 import com.example.ariandroid.ui.components.AuthField
+import com.example.ariandroid.ui.components.PassField
 import com.example.ariandroid.ui.theme.AppTypography
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
@@ -96,29 +97,26 @@ fun SignUp1Screen(
                         value = signupData.email,
                         onValueChange = viewModel::onEmailChange,
                         error = validationSignUpResult.emailError,
-                        trailingIcon = false,
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    AuthField(
+                    PassField(
                         titleText = stringResource(R.string.password_field_title),
                         text = stringResource(R.string.enter_password),
                         value = signupData.password,
                         onValueChange = viewModel::onPasswordChange,
                         error = validationSignUpResult.passwordError,
-                        trailingIcon = true,
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    AuthField(
+                    PassField(
                         titleText = stringResource(R.string.repeat_password_field_title),
                         text = stringResource(R.string.enter_password),
                         value = signupData.confirmPassword,
                         onValueChange = viewModel::onConfirmPasswordChange,
                         error = validationSignUpResult.confirmPasswordError,
-                        trailingIcon = true,
                     )
 
                     Spacer(modifier = Modifier.height(32.dp))
