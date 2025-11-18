@@ -68,4 +68,7 @@
     <string name="date_in_future">Дата еще не наступила</string>
     <string name="date_is_too_old">Дата была слишком давно</string>
     <string name="field_has_only_letters">Поле может содержать только буквы</string>
+    <string name="in_day">" в день"</string>
+    <string name="to_rent">Забронировать</string>
+    <string name="details">Детали</string>
 </resources>

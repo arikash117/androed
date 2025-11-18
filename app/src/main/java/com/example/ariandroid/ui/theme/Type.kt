@@ -29,6 +29,12 @@ val AppTypography = Typography(
         fontSize = 14.sp,
         color = Color.Black,
     ),
+    bodyMedium = TextStyle(
+        fontFamily = Montserrat,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        color = BlackCurrant,
+    ),
     // for warnings
     titleSmall = TextStyle(
         fontFamily = Montserrat,

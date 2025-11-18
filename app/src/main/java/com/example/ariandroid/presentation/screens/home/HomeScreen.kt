@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-//import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -35,6 +34,7 @@ import com.example.ariandroid.R
 import com.example.ariandroid.presentation.domain.model.mockCars
 import com.example.ariandroid.ui.components.CarCard
 import com.example.ariandroid.ui.components.NavBar
+import com.example.ariandroid.ui.theme.AppTypography
 import com.example.ariandroid.ui.theme.Background
 
 
@@ -79,8 +79,7 @@ fun HomeScreen(
                         placeholder = {
                             Text(
                                 stringResource(R.string.enter_car_brand),
-                                color = Color.Gray,
-                                fontSize = 16.sp,
+                                style = AppTypography.titleMedium.copy(color = Color.LightGray),
                                 modifier = Modifier.fillMaxWidth(),
                                 textAlign = TextAlign.Start,
                             )
@@ -106,7 +105,7 @@ fun HomeScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(18.dp),
-                    fontSize = 16.sp,
+                    style = AppTypography.titleLarge.copy(fontSize = 16.sp)
                 )
             }
 
@@ -115,7 +114,7 @@ fun HomeScreen(
             LazyColumn(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .padding(horizontal = 15.dp)
+                    .padding(horizontal = 5.dp)
             ) {
                 items(mockCars) { car ->
                     CarCard(car = car)
