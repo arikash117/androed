@@ -16,9 +16,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.ariandroid.R
+import com.example.ariandroid.ui.theme.AppTypography
 import com.example.ariandroid.ui.theme.Background
 import com.example.ariandroid.ui.theme.BlackCurrant
 import kotlinx.coroutines.delay
@@ -48,9 +52,13 @@ fun LoadingScreen(
             Image(
                 painter = painterResource(id = R.drawable.load_car),
                 contentDescription = "searching cars",
-                modifier = Modifier.size(96.dp)
+                modifier = Modifier.size(150.dp)
             )
-            Text(text = "Ищем подходящие автомобили")
+            Text(
+                text = stringResource(R.string.searching_process),
+                style = AppTypography.titleLarge.copy(fontWeight = FontWeight.Normal),
+                textAlign = TextAlign.Center,
+                )
             Spacer(modifier = Modifier.height(8.dp))
             CircularProgressIndicator(
                 color = BlackCurrant,

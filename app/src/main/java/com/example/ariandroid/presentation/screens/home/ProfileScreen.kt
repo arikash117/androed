@@ -83,7 +83,7 @@ fun ProfileScreen(
     }
 
     if (showSnackbar) {
-        LaunchedEffect(showSnackbar) {
+        LaunchedEffect(true) {
             delay(3000)
             showSnackbar = false
         }

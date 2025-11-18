@@ -22,6 +22,7 @@ import com.example.ariandroid.ui.theme.AppTypography
 @Composable
 fun AccountCreate(
     navigateBack: () -> Unit,
+    contentText: String,
 ) {
     Box(
         contentAlignment = Alignment.CenterStart,
@@ -37,7 +38,7 @@ fun AccountCreate(
         )
 
         Text(
-            text = stringResource(R.string.create_account_title),
+            text = contentText,
             style = AppTypography.titleLarge.copy(fontSize = 20.sp),
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center
@@ -50,5 +51,6 @@ fun AccountCreate(
 fun PreviewAccount() {
     AccountCreate(
         navigateBack = {},
+        contentText = "Создать аккаунт"
     )
 }

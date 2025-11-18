@@ -147,7 +147,7 @@ fun SignUp3Screen(
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                AccountCreate(navigateBack = navigateBack)
+                AccountCreate(navigateBack = navigateBack, contentText = "Создать аккаунт")
 
                 Spacer(modifier = Modifier.height(32.dp))
 

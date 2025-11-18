@@ -71,4 +71,7 @@
     <string name="in_day">" в день"</string>
     <string name="to_rent">Забронировать</string>
     <string name="details">Детали</string>
+    <string name="no_cars_available">Нет доступных автомобилей</string>
+    <string name="searching_results">Результаты поиска</string>
+    <string name="searching_process">Ищем подходящие автомобили</string>
 </resources>
